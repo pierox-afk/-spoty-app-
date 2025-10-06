@@ -22,7 +22,6 @@ export const AlbumCard = ({
   const [isSaved, setIsSaved] = useState(isInitiallySaved);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Sincroniza el estado interno si la prop cambia
   useEffect(() => {
     setIsSaved(isInitiallySaved);
   }, [isInitiallySaved]);
@@ -50,7 +49,6 @@ export const AlbumCard = ({
       }
     } catch (error) {
       console.error("Error al guardar el álbum:", error);
-      // Opcional: Mostrar una notificación de error al usuario
     } finally {
       setIsSaving(false);
     }

@@ -1,13 +1,11 @@
-// src/App.tsx
 import { useEffect, useRef, type JSX } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
-import SearchPage from "./pages/SearchPage"; // Importa la nueva página
+import SearchPage from "./pages/SearchPage";
 import MyAlbums from "./pages/MyAlbums";
 import { getAccessToken } from "./hooks/useAuth";
 import { useAuthContext } from "./AuthContext";
 
-// Componente para la página de callback
 const CallbackPage = () => {
   const navigate = useNavigate();
   const hasFetched = useRef(false);
@@ -19,7 +17,6 @@ const CallbackPage = () => {
 
     if (code) {
       const fetchToken = async () => {
-        // Evita que el efecto se ejecute dos veces en StrictMode
         if (hasFetched.current) {
           return;
         }
@@ -44,16 +41,12 @@ const CallbackPage = () => {
   return <div>Cargando...</div>;
 };
 
-// Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { token } = useAuthContext();
   if (!token) {
-    // Si no hay token, redirigimos a la página de login.
-    // 'replace' evita que el usuario pueda volver atrás a una ruta protegida.
     return <Navigate to="/" replace />;
   }
 
-  // Si hay token, mostramos el contenido protegido.
   return children;
 };
 

@@ -21,8 +21,7 @@ const usePagination = ({
   currentPage,
 }: Omit<PaginationProps, "onPageChange">) => {
   const paginationRange = useMemo(() => {
-    // 1 (first) + 1 (last) + 1 (current) + siblingCount * 2 + 2 (dots) = 7
-    const totalPageNumbers = siblingCount + 5; // This is a good threshold
+    const totalPageNumbers = siblingCount + 5;
 
     if (totalPageNumbers >= totalPages) {
       return range(1, totalPages);

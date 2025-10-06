@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
-import Header from "../components/Header";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
 import type { Album } from "../spotify";
+import { Header } from "../components/Header";
 
 import "../components/Page.css";
 
@@ -77,7 +77,6 @@ export default function MyAlbums() {
       const newAlbums = albums.filter((album) => album.id !== albumId);
       setAlbums(newAlbums);
 
-      // If the removed album was selected, select the next one or close
       if (selectedAlbum?.id === albumId) {
         if (newAlbums.length > 0) {
           const currentIndex = albums.findIndex((a) => a.id === albumId);
@@ -140,7 +139,7 @@ export default function MyAlbums() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [selectedAlbum]);
-  // --- Lógica para el slider de arrastre ---
+
   const sliderRef = useRef<HTMLDivElement>(null);
   const isDown = useRef(false);
   const startX = useRef(0);
@@ -170,13 +169,11 @@ export default function MyAlbums() {
     const onMouseMove = (e: MouseEvent) => {
       if (!isDown.current || !slider) return;
       e.preventDefault();
-      // slider.offsetLeft puede ser inestable si hay scroll. getBoundingClientRect es más robusto pero aquí funciona.
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX.current) * 2;
       slider.scrollLeft = scrollLeft.current - walk;
     };
 
-    // Añadimos los listeners al documento para un arrastre más robusto
     document.addEventListener("mouseup", onMouseUp);
     document.addEventListener("mousemove", onMouseMove);
 

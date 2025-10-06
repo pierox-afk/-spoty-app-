@@ -5,12 +5,12 @@ import type { Album, SearchResponse } from "../spotify";
 import { useDebounce } from "../hooks/useDebounce";
 
 import "../components/Page.css";
-import Header from "../components/Header";
 import Pagination from "../components/Pagination";
 import "../components/Pagination.css";
 import { AlbumGrid } from "../components/AlbumGrid";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
+import { Header } from "../components/Header";
 
 export default function SearchPage() {
   const { token, logout } = useAuthContext();

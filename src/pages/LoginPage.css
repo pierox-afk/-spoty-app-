@@ -4,28 +4,39 @@
   flex-direction: column;
   background-color: var(--bg-color);
   color: var(--text-color);
+  padding-top: 87px;
 }
 
 .login-header {
-  padding: 2rem 2rem 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 80px;
+  background-color: var(--bg-color);
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 87px;
 }
 
 .login-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text-color);
+  height: 60px;
+  width: auto;
 }
 
 .login-container {
   display: flex;
-  flex-direction: row; /* Coloca los elementos uno al lado del otro */
-  align-items: center; /* Centra verticalmente la flecha y el texto */
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
-  gap: 4rem; /* Espacio entre la flecha y el texto */
-  flex-grow: 1; /* Ocupa el espacio restante */
+  gap: 4rem;
+  flex-grow: 1;
   padding: 2rem;
   text-align: left;
-  max-width: 1000px; /* Aumenta el ancho máximo para que quepan ambos elementos */
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -35,7 +46,7 @@
 
 .login-arrow-icon {
   color: var(--highlight);
-  width: 450px; /* Mucho más grande */
+  width: 450px;
   height: 450px;
 }
 
@@ -61,34 +72,33 @@
 }
 
 .login-button {
-  background-color: var(--button-bg);
+  background-color: transparent;
   color: var(--text-color);
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 50px;
+  padding: 0;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  transition: background-color 0.2s;
+  transition: color 0.2s;
 }
 
 .login-button-icon {
   width: 20px;
   height: 20px;
+  transform: rotate(0deg) !important;
 }
 
 .login-button:hover {
-  background-color: var(--highlight);
+  color: var(--highlight);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .login-container {
-    flex-direction: column; /* Vuelve a apilar en pantallas pequeñas */
-    text-align: center; /* Centra el texto en móvil */
+    flex-direction: column;
+    text-align: center;
     gap: 2rem;
   }
 
@@ -101,7 +111,7 @@
   }
 
   .login-arrow-icon {
-    width: 200px; /* Un tamaño más adecuado para móvil */
+    width: 200px;
     height: 200px;
   }
 }

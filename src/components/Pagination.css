@@ -10,7 +10,7 @@
 
 .pagination-btn {
   background-color: transparent;
-  color: #ffffff;
+  color: var(--text-color);
   border: none;
   padding: 0.5rem;
   border-radius: 0;
@@ -30,7 +30,8 @@
 
 .pagination-btn:disabled {
   background-color: transparent;
-  color: #555;
+  color: var(--text-color);
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -42,11 +43,11 @@
 }
 
 .pagination-dots {
-  color: #b3b3b3;
+  color: var(--text-color);
+  opacity: 0.5;
   padding: 0 0.5rem;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .pagination {
     gap: 0.25rem;

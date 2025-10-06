@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../AuthContext";
 import { redirectToSpotifyAuth } from "../hooks/useAuth";
+import logo from "../img/Shape (1).png";
 import "./LoginPage.css";
 
 export default function LoginPage() {
@@ -17,7 +18,7 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <header className="login-header">
-        <div className="login-logo">MusicApp</div>
+        <img src={logo} alt="Logo de Spoty" className="login-logo" />
       </header>
       <div className="login-container">
         <div className="login-icon-container">
@@ -49,7 +50,7 @@ export default function LoginPage() {
             >
               <path
                 fill="currentColor"
-                d="M6.4 18L5 16.6L14.6 7H6V5h12v12h-2V8.4L6.4 18Z"
+                d="M0 10 L15 10 L15 5 L20 10 L15 15 L15 10 Z"
               />
             </svg>
           </button>
