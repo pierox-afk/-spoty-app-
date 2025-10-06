@@ -1,0 +1,577 @@
+.page-container {
+  /* 87px (altura del header) + 2rem (espacio extra) */
+  margin: calc(87px + 2rem) auto 0;
+  max-width: 1512px;
+  padding: 0 2rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.page-header a,
+.page-header button {
+  background-color: #282828;
+  color: white;
+  border: 1px solid #404040;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  align-items: center;
+}
+
+.page-header a:hover,
+.page-header button:hover {
+  background-color: #333;
+  border-color: #555;
+}
+
+.search-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.search-header {
+  min-height: 150px; /* Espacio para que el contenido no salte */
+}
+
+.search-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.search-section .highlight {
+  color: var(--highlight);
+}
+
+.search-header p {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 664px;
+  height: 62px;
+  padding: 8px 8px 8px 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  background-color: #ffffff;
+  opacity: 1;
+  margin: 0 auto;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #000000;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #5f5f5f;
+  opacity: 1;
+}
+
+.search-button {
+  background-color: var(--highlight);
+  color: #000;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #28a745;
+}
+
+.results-section {
+  margin-top: 2rem;
+}
+
+.results-section h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .search-section h1 {
+    font-size: 2rem;
+  }
+
+  .search-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .search-input,
+  .search-button {
+    width: 100%;
+  }
+}
+
+.albums-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 727px;
+  height: 244px;
+  gap: 24px;
+  margin: 2rem auto 3rem;
+}
+
+.albums-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.albums-header .highlight {
+  color: var(--highlight);
+}
+
+.albums-header p {
+  font-size: 1.1rem;
+  color: #b3b3b3;
+  max-width: 600px;
+  margin: 0;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.view-btn {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.view-btn:hover,
+.view-btn.active {
+  background-color: var(--highlight);
+  border-color: var(--highlight);
+  color: #000;
+}
+
+.back-btn {
+  margin-bottom: 2rem;
+}
+
+.albums-section {
+  padding: 2rem 0;
+}
+
+.artist-group {
+  margin-bottom: 3rem;
+}
+
+.artist-group h2 {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.albums-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.album-card {
+  background-color: var(--card-bg);
+  border-radius: 24px;
+  padding: 1rem;
+  text-align: center;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 469px;
+}
+
+.album-card:hover {
+  background-color: var(--input-bg);
+}
+
+.album-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+
+.album-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80px;
+  margin-bottom: 1rem;
+}
+
+.album-info h3 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  display: -webkit-box;
+  text-align: left;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.album-info p {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.2;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.remove-album-btn {
+  margin-top: auto;
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: #d94a3d;
+  color: #ffffff;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  width: 50%;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.coverflow-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  overflow: hidden;
+}
+
+.coverflow-container {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 2rem 0;
+  gap: 2rem;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 20%,
+    black 80%,
+    transparent
+  );
+  cursor: grab;
+}
+
+.coverflow-container.active-drag {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.coverflow-container::-webkit-scrollbar {
+  display: none;
+}
+.coverflow-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.coverflow-item {
+  flex-shrink: 0;
+  width: 300px;
+  scroll-snap-align: center;
+  transition: transform 0.3s, opacity 0.3s;
+  transform: scale(0.8);
+  opacity: 0.6;
+  position: relative;
+}
+
+.coverflow-item:hover {
+  transform: scale(0.85);
+  opacity: 1;
+}
+
+.coverflow-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  pointer-events: none;
+  aspect-ratio: 1 / 1;
+}
+
+.coverflow-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  padding: 1.5rem 1rem 1rem;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  text-align: left;
+  pointer-events: none;
+}
+
+.coverflow-info h4,
+.coverflow-info p {
+  margin: 0;
+}
+
+.single-album-view {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.single-album-view .album-card {
+  width: 300px;
+}
+
+.selected-album-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.selected-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 1rem;
+}
+
+.nav-arrows {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-arrow {
+  background: none;
+  border: 2px solid var(--highlight);
+  color: var(--highlight);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-arrow:hover {
+  background-color: var(--highlight);
+  color: #000;
+}
+
+.selected-album-slider {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 2rem 0;
+  gap: 2rem;
+  cursor: grab;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.selected-album-slider.active-drag {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.selected-album-slider::-webkit-scrollbar {
+  display: none;
+}
+.selected-album-slider {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.selected-slider-item {
+  flex-shrink: 0;
+  width: 250px;
+  scroll-snap-align: center;
+  transition: transform 0.3s, opacity 0.3s;
+  transform: scale(0.8);
+  opacity: 0.6;
+  position: relative;
+  text-align: center;
+}
+
+.selected-slider-item:hover {
+  transform: scale(0.85);
+  opacity: 1;
+}
+
+.selected-slider-item.selected {
+  width: 663px;
+  height: 401px;
+  transform: scale(1);
+  opacity: 1;
+  border-radius: 24px;
+  padding: 1rem;
+  background-color: var(--highlight);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+.selected-slider-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.selected-slider-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.selected-slider-info .info-left {
+  text-align: left;
+}
+
+.selected-slider-info .info-left h4 {
+  margin: 0;
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+}
+
+.selected-slider-info .info-left p {
+  margin: 0.25rem 0 0 0;
+  color: #000;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.selected-slider-info .remove-btn {
+  background-color: #d94a3d;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+@media (max-width: 768px) {
+  .albums-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .view-toggle {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .view-btn {
+    width: 200px;
+  }
+
+  .coverflow-item {
+    width: 200px;
+  }
+
+  .selected-slider-item {
+    width: 200px;
+  }
+
+  .selected-slider-item.selected {
+    padding: 0.5rem;
+  }
+
+  .selected-slider-image {
+    height: 150px;
+  }
+}

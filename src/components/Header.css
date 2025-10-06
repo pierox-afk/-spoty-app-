@@ -1,0 +1,94 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 75%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+
+  z-index: 1000;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.header-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: left;
+  width: 100%;
+  max-width: 1512px;
+  height: 87px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.header-link {
+  color: var(--text-color);
+  opacity: 0.7;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.header-link:hover,
+.header-link.active {
+  color: var(--highlight);
+  opacity: 1;
+}
+
+.header-logout {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  opacity: 0.7;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.header-logout:hover {
+  color: #ff6b6b;
+  opacity: 1;
+}
+
+.header-theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  opacity: 0.7;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--input-bg);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .header-nav {
+    gap: 1rem;
+  }
+
+  .header-link {
+    font-size: 0.9rem;
+  }
+}

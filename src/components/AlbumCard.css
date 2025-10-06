@@ -1,0 +1,71 @@
+.album-card {
+  background-color: #181818;
+  padding: 1rem;
+  border-radius: 24px;
+  transition: background-color 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 469px;
+}
+
+.album-card:hover {
+  background-color: #282828;
+}
+
+.album-info {
+  flex-grow: 1; /* Permite que este div ocupe el espacio disponible */
+  margin-bottom: 1rem; /* Espacio entre la info y el botón */
+  overflow: hidden; /* Evita que el contenido empuje al botón */
+  min-height: 0; /* Truco de Flexbox para que el overflow funcione correctamente */
+}
+
+.album-card-image-container {
+  position: relative;
+  margin-bottom: 1rem;
+  height: 280px; /* Altura fija para el contenedor de la imagen */
+}
+
+.album-card-image {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  display: block;
+  height: 100%;
+}
+
+.album-card-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.album-card-date {
+  font-size: 14px;
+  margin: 0;
+  color: #b3b3b3;
+  text-align: left;
+}
+
+.add-btn {
+  margin-top: auto;
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: var(--highlight);
+  color: #000;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  text-align: center;
+  width: 50%;
+  white-space: nowrap;
+}
+
+.add-btn:hover {
+  opacity: 0.9;
+}

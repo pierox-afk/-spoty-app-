@@ -1,0 +1,107 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.login-header {
+  padding: 2rem 2rem 0 2rem;
+}
+
+.login-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.login-container {
+  display: flex;
+  flex-direction: row; /* Coloca los elementos uno al lado del otro */
+  align-items: center; /* Centra verticalmente la flecha y el texto */
+  justify-content: center;
+  gap: 4rem; /* Espacio entre la flecha y el texto */
+  flex-grow: 1; /* Ocupa el espacio restante */
+  padding: 2rem;
+  text-align: left;
+  max-width: 1000px; /* Aumenta el ancho máximo para que quepan ambos elementos */
+  margin: 0 auto;
+}
+
+.login-icon-container {
+  margin-bottom: 2rem;
+}
+
+.login-arrow-icon {
+  color: var(--highlight);
+  width: 450px; /* Mucho más grande */
+  height: 450px;
+}
+
+.login-content {
+  max-width: 400px;
+}
+
+.login-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.login-content .highlight {
+  color: var(--highlight);
+}
+
+.login-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.login-button {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.login-button-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.login-button:hover {
+  background-color: var(--highlight);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column; /* Vuelve a apilar en pantallas pequeñas */
+    text-align: center; /* Centra el texto en móvil */
+    gap: 2rem;
+  }
+
+  .login-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .login-content p {
+    font-size: 1rem;
+  }
+
+  .login-arrow-icon {
+    width: 200px; /* Un tamaño más adecuado para móvil */
+    height: 200px;
+  }
+}
