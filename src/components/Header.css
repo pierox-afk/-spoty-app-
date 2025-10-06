@@ -14,8 +14,9 @@
 }
 
 .app-logo {
-  height: 39px;
-  width: auto;
+  height: 24px;
+  width: 133px;
+  opacity: 1;
 }
 
 .app-nav {

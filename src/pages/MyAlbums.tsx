@@ -3,6 +3,7 @@ import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
+import { Header } from "../components/Header";
 import type { Album } from "../spotify";
 
 import "../components/Page.css";
@@ -92,7 +93,7 @@ export default function MyAlbums() {
     const draggedArtist = draggedAlbum.artists[0]?.name || "Unknown";
     const targetArtist = targetAlbum.artists[0]?.name || "Unknown";
 
-    if (draggedArtist !== targetArtist) return; // Only reorder within same artist
+    if (draggedArtist !== targetArtist) return;
 
     const newAlbums = [...albums];
     const draggedIndex = newAlbums.findIndex((a) => a.id === draggedAlbum.id);
@@ -154,13 +155,11 @@ export default function MyAlbums() {
     const onMouseMove = (e: MouseEvent) => {
       if (!isDown.current || !slider) return;
       e.preventDefault();
-      // slider.offsetLeft puede ser inestable si hay scroll. getBoundingClientRect es más robusto pero aquí funciona.
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX.current) * 2;
       slider.scrollLeft = scrollLeft.current - walk;
     };
 
-    // Añadimos los listeners al documento para un arrastre más robusto
     document.addEventListener("mouseup", onMouseUp);
     document.addEventListener("mousemove", onMouseMove);
 
@@ -187,6 +186,7 @@ export default function MyAlbums() {
 
   return (
     <div className="page-container">
+      <Header />
       <main>
         <section className="albums-header">
           <h1>

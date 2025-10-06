@@ -1,4 +1,3 @@
-// src/hooks/useAuth.ts
 import { generateCodeVerifier, generateCodeChallenge } from "../lib/pkce";
 
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -29,7 +28,6 @@ export const redirectToSpotifyAuth = async () => {
   window.location.href = `${AUTH_ENDPOINT}?${params.toString()}`;
 };
 
-// Función para obtener el token de acceso
 export const getAccessToken = async (code: string): Promise<string | null> => {
   const verifier = localStorage.getItem("verifier");
   if (!verifier) {
@@ -56,7 +54,6 @@ export const getAccessToken = async (code: string): Promise<string | null> => {
     });
 
     if (!response.ok) {
-      // Leer el cuerpo del error para un mejor diagnóstico
       const errorData = await response.json();
       throw new Error(
         `Failed to fetch access token: ${errorData.error_description}`
