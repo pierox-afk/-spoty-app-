@@ -267,10 +267,16 @@
 
   .album-info h3 {
     font-size: 0.9rem;
+    -webkit-line-clamp: 1;
   }
 
   .album-info p {
     font-size: 0.8rem;
+    -webkit-line-clamp: 1;
+  }
+
+  .album-info {
+    min-height: 60px;
   }
 
   .remove-album-btn {
@@ -286,12 +292,14 @@
   }
 
   .selected-slider-item.selected {
-    width: 95vw;
+    width: 85vw;
+    max-width: 300px;
+    height: auto;
     padding: 0.5rem;
   }
 
   .selected-slider-image {
-    height: 120px;
+    height: 180px;
   }
 
   .selected-slider-info .info-left h4 {
