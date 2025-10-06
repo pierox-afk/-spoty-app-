@@ -51,10 +51,38 @@
 @media (max-width: 768px) {
   .pagination {
     gap: 0.25rem;
+    width: 100%;
+    max-width: 300px;
   }
 
   .pagination-btn {
     padding: 0.4rem 0.8rem;
     min-width: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .pagination-btn.nav-btn {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 0.2rem;
+    height: 28px;
+  }
+
+  .pagination-btn {
+    padding: 0.3rem 0.6rem;
+    min-width: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .pagination-btn.nav-btn {
+    font-size: 1.1rem;
+  }
+
+  .pagination-dots {
+    padding: 0 0.25rem;
   }
 }

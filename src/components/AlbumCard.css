@@ -74,3 +74,53 @@
 .add-btn:hover {
   opacity: 0.9;
 }
+
+@media (max-width: 768px) {
+  .album-card {
+    height: 350px;
+    padding: 0.75rem;
+  }
+
+  .album-card-image-container {
+    height: 200px;
+    margin-bottom: 0.75rem;
+  }
+
+  .album-card-name {
+    font-size: 14px;
+  }
+
+  .album-card-date {
+    font-size: 12px;
+  }
+
+  .add-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-card {
+    height: 280px;
+    padding: 0.5rem;
+  }
+
+  .album-card-image-container {
+    height: 160px;
+    margin-bottom: 0.5rem;
+  }
+
+  .album-card-name {
+    font-size: 13px;
+  }
+
+  .album-card-date {
+    font-size: 11px;
+  }
+
+  .add-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}
