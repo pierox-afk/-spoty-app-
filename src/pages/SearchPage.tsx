@@ -60,12 +60,14 @@ export default function SearchPage() {
             token
           );
           const newSavedAlbumIds = new Set(savedAlbumIds);
+          let added = false;
           savedStatus.forEach((isSaved, index) => {
-            if (isSaved) {
+            if (isSaved && !newSavedAlbumIds.has(albumIds[index])) {
               newSavedAlbumIds.add(albumIds[index]);
+              added = true;
             }
           });
-          setSavedAlbumIds(newSavedAlbumIds);
+          if (added) setSavedAlbumIds(newSavedAlbumIds);
         }
 
         if (data.albums.items.length === 0) {
@@ -76,10 +78,14 @@ export default function SearchPage() {
           setAlbums(data.albums.items);
           setTotalPages(Math.ceil(data.albums.total / limit));
         }
-      } catch (err: any) {
-        setError(err.message);
-        if (err.message.includes("expirado")) {
-          logout();
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+          if (err.message.includes("expirado")) {
+            logout();
+          }
+        } else {
+          setError("Error desconocido");
         }
       } finally {
         setIsLoading(false);
@@ -87,7 +93,7 @@ export default function SearchPage() {
     };
 
     searchAlbums();
-  }, [debouncedQuery, token, logout, currentPage]);
+  }, [debouncedQuery, token, logout, currentPage, savedAlbumIds]);
 
   const renderContent = () => {
     if (isLoading) return <Spinner />;

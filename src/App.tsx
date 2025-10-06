@@ -29,9 +29,9 @@ const CallbackPage = () => {
           } else {
             throw new Error("Token was not received.");
           }
-        } catch (error) {
+        } catch (error: unknown) {
           console.error("Error during token fetch:", error);
-          navigate("/"); // Si algo falla, vuelve al login
+          navigate("/");
         }
       };
       fetchToken();
@@ -71,7 +71,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-      {/* Añade aquí más rutas protegidas */}
     </Routes>
   );
 }

@@ -77,7 +77,7 @@ export default function MyAlbums() {
     }
   };
 
-  const handleDragStart = (_e: React.DragEvent, album: Album) => {
+  const handleDragStart = (album: Album) => {
     setDraggedAlbum(album);
   };
 
@@ -125,7 +125,6 @@ export default function MyAlbums() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [selectedAlbum]);
-  // --- Lógica para el slider de arrastre ---
   const sliderRef = useRef<HTMLDivElement>(null);
   const isDown = useRef(false);
   const startX = useRef(0);
@@ -265,7 +264,7 @@ export default function MyAlbums() {
                       key={album.id}
                       className="album-card"
                       draggable
-                      onDragStart={(e) => handleDragStart(e, album)}
+                      onDragStart={() => handleDragStart(album)}
                       onDragOver={handleDragOver}
                       onDrop={(e) => handleDrop(e, album)}
                       onClick={() => setSelectedAlbum(album)}
