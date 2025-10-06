@@ -1,4 +1,4 @@
-import type { Album } from "../types/spotify";
+import type { Album } from "../spotify";
 import { AlbumCard } from "./AlbumCard";
 import "./AlbumGrid.css";
 

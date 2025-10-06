@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
-import type { Album } from "../types/spotify";
+import type { Album } from "../spotify";
 import { AlbumGrid } from "../components/AlbumGrid";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";

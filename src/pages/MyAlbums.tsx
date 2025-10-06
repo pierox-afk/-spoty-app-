@@ -16,20 +16,6 @@ export default function MyAlbums() {
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
   const [draggedAlbum, setDraggedAlbum] = useState<Album | null>(null);
 
-  const selectNextAlbum = () => {
-    if (!selectedAlbum || albums.length === 0) return;
-    const currentIndex = albums.findIndex((a) => a.id === selectedAlbum.id);
-    const nextIndex = (currentIndex + 1) % albums.length;
-    setSelectedAlbum(albums[nextIndex]);
-  };
-
-  const selectPrevAlbum = () => {
-    if (!selectedAlbum || albums.length === 0) return;
-    const currentIndex = albums.findIndex((a) => a.id === selectedAlbum.id);
-    const prevIndex = (currentIndex - 1 + albums.length) % albums.length;
-    setSelectedAlbum(albums[prevIndex]);
-  };
-
   useEffect(() => {
     const fetchSavedAlbums = async () => {
       if (!token) return;
@@ -91,7 +77,7 @@ export default function MyAlbums() {
     }
   };
 
-  const handleDragStart = (e: React.DragEvent, album: Album) => {
+  const handleDragStart = (_e: React.DragEvent, album: Album) => {
     setDraggedAlbum(album);
   };
 
