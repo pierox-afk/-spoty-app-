@@ -4,12 +4,14 @@ import { spotifyFetch } from "../spotifyClient";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
 import { Header } from "../components/Header";
+import { useModal } from "../ModalContext";
 import type { Album } from "../spotify";
 
 import "../components/Page.css";
 
 export default function MyAlbums() {
   const { token, logout } = useAuthContext();
+  const { showModal } = useModal();
   const [albums, setAlbums] = useState<Album[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +26,13 @@ export default function MyAlbums() {
         const endpoint = "/me/albums?limit=50";
         const data = await spotifyFetch<{ items: { album: Album }[] }>(
           endpoint,
-          token
+          token,
+          {},
+          () =>
+            showModal(
+              "Acceso Denegado",
+              "Tu email no está autorizado para usar esta aplicación."
+            )
         );
         const savedAlbums = data.items.map((item) => item.album);
         setAlbums(savedAlbums);
@@ -58,9 +66,18 @@ export default function MyAlbums() {
     if (!token) return;
 
     try {
-      await spotifyFetch(`/me/albums?ids=${albumId}`, token, {
-        method: "DELETE",
-      });
+      await spotifyFetch(
+        `/me/albums?ids=${albumId}`,
+        token,
+        {
+          method: "DELETE",
+        },
+        () =>
+          showModal(
+            "Acceso Denegado",
+            "Tu email no está autorizado para usar esta aplicación."
+          )
+      );
       const newAlbums = albums.filter((album) => album.id !== albumId);
       setAlbums(newAlbums);
 

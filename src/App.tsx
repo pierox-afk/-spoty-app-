@@ -5,6 +5,7 @@ import SearchPage from "./pages/SearchPage";
 import MyAlbums from "./pages/MyAlbums";
 import { getAccessToken } from "./hooks/useAuth";
 import { useAuthContext } from "./AuthContext";
+import { ModalProvider } from "./ModalContext";
 
 const CallbackPage = () => {
   const navigate = useNavigate();
@@ -52,26 +53,28 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/callback" element={<CallbackPage />} />
-      <Route
-        path="/search"
-        element={
-          <ProtectedRoute>
-            <SearchPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/albums"
-        element={
-          <ProtectedRoute>
-            <MyAlbums />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <ModalProvider>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/callback" element={<CallbackPage />} />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <SearchPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/albums"
+          element={
+            <ProtectedRoute>
+              <MyAlbums />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </ModalProvider>
   );
 }
 

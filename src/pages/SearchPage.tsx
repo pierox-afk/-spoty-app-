@@ -3,6 +3,7 @@ import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import type { Album, SearchResponse } from "../spotify";
 import { useDebounce } from "../hooks/useDebounce";
+import { useModal } from "../ModalContext";
 
 import "../components/Page.css";
 import Pagination from "../components/Pagination";
@@ -14,6 +15,7 @@ import { Header } from "../components/Header";
 
 export default function SearchPage() {
   const { token, logout } = useAuthContext();
+  const { showModal } = useModal();
   const [query, setQuery] = useState("");
   const [albums, setAlbums] = useState<Album[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +50,16 @@ export default function SearchPage() {
         const endpoint = `/search?q=${encodeURIComponent(
           debouncedQuery
         )}&type=album&limit=${limit}&offset=${offset}`;
-        const data = await spotifyFetch<SearchResponse>(endpoint, token);
+        const data = await spotifyFetch<SearchResponse>(
+          endpoint,
+          token,
+          {},
+          () =>
+            showModal(
+              "Acceso Denegado",
+              "Tu email no está autorizado para usar esta aplicación."
+            )
+        );
 
         const albumIds = data.albums.items.map((album) => album.id);
         if (albumIds.length > 0) {
@@ -57,7 +68,13 @@ export default function SearchPage() {
           )}`;
           const savedStatus = await spotifyFetch<boolean[]>(
             checkSavedEndpoint,
-            token
+            token,
+            {},
+            () =>
+              showModal(
+                "Acceso Denegado",
+                "Tu email no está autorizado para usar esta aplicación."
+              )
           );
           const newSavedAlbumIds = new Set(savedAlbumIds);
           let added = false;
