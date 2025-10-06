@@ -23,8 +23,9 @@
 }
 
 .login-logo {
-  height: 60px;
-  width: auto;
+  height: 24px;
+  width: 133px;
+  opacity: 1;
 }
 
 .login-container {

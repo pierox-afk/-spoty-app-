@@ -1,6 +1,5 @@
 import { generateCodeVerifier, generateCodeChallenge } from "../lib/pkce";
 
-const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const SCOPES = [
   "user-read-private",
   "user-library-read",
@@ -13,13 +12,15 @@ export const redirectToSpotifyAuth = async () => {
 
   localStorage.setItem("verifier", verifier);
 
-  const redirectUri = `http://127.0.0.1:5173/callback`;
+  const redirectUri = import.meta.env.VITE_REDIRECT_URI;
   console.log("Redirect URI:", redirectUri);
 
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const params = new URLSearchParams({
     client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
     response_type: "code",
     redirect_uri: redirectUri,
+
     scope: SCOPES.join(" "),
     code_challenge_method: "S256",
     code_challenge: challenge,
@@ -35,8 +36,7 @@ export const getAccessToken = async (code: string): Promise<string | null> => {
   }
 
   const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
-  const redirectUri = `http://127.0.0.1:5173/callback`;
-  console.log("Token exchange redirect URI:", redirectUri);
+  const redirectUri = import.meta.env.VITE_REDIRECT_URI;
 
   const params = new URLSearchParams({
     client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,

@@ -48,12 +48,13 @@ Una aplicación web para buscar y gestionar álbumes de Spotify. Permite a los u
 
    ```
    VITE_SPOTIFY_CLIENT_ID=tu_client_id_de_spotify
+   VITE_REDIRECT_URI=https://spoty-app-five.vercel.app/callback
    ```
 
 4. **Configura la aplicación en Spotify**:
    - Ve a [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
    - Crea una nueva aplicación
-   - Agrega `http://127.0.0.1:5173/callback` como URI de redireccionamiento
+   - Agrega la URI de redireccionamiento del archivo `.env` (por defecto: `https://spoty-app-five.vercel.app/callback`)
    - Copia el Client ID al archivo `.env`
 
 ## Scripts Disponibles
