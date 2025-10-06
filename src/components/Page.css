@@ -276,6 +276,9 @@
   .remove-album-btn {
     padding: 0.5rem 0.75rem;
     font-size: 0.8rem;
+    width: 100%;
+    white-space: normal;
+    text-align: center;
   }
 
   .selected-slider-item.selected {
