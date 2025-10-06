@@ -101,6 +101,10 @@
     padding-top: 70px;
   }
 
+  .login-container {
+    max-width: 100%;
+  }
+
   .login-header {
     padding: 16px 20px;
     height: 70px;
@@ -140,6 +144,10 @@
 @media (max-width: 480px) {
   .login-page {
     padding-top: 60px;
+  }
+
+  .login-container {
+    padding: 0.5rem;
   }
 
   .login-header {
