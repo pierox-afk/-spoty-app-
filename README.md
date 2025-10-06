@@ -137,7 +137,7 @@ Este proyecto está bajo la Licencia MIT.
 
 ## Vercel url
 
-https://vercel.com/pieros-projects-fa9dbf2c/spoty-app-aprz
+spoty-app-aprz.vercel.app
 
 ¡Disfruta explorando y guardando tus álbumes favoritos de Spotify!
 
