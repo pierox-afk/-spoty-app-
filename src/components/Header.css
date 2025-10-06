@@ -1,7 +1,7 @@
 .header {
   position: fixed;
   top: 0;
-  left: 75%;
+  left: 50%;
   transform: translateX(-50%);
   width: 100%;
   display: flex;
@@ -17,7 +17,7 @@
 .header-content {
   display: flex;
   justify-content: flex-end;
-  align-items: left;
+  align-items: center;
   width: 100%;
   max-width: 1512px;
   height: 87px;
@@ -41,6 +41,11 @@
 .header-link.active {
   color: var(--highlight);
   opacity: 1;
+}
+
+.header-separator {
+  color: var(--text-color);
+  opacity: 0.5;
 }
 
 .header-logout {

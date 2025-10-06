@@ -120,6 +120,26 @@ export default function MyAlbums() {
     setDraggedAlbum(null);
   };
 
+  const sliderSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sliderSectionRef.current &&
+        !sliderSectionRef.current.contains(event.target as Node)
+      ) {
+        setSelectedAlbum(null);
+      }
+    };
+
+    if (selectedAlbum) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [selectedAlbum]);
   // --- Lógica para el slider de arrastre ---
   const sliderRef = useRef<HTMLDivElement>(null);
   const isDown = useRef(false);
@@ -196,7 +216,7 @@ export default function MyAlbums() {
         </section>
 
         {selectedAlbum ? (
-          <section className="selected-album-section">
+          <section className="selected-album-section" ref={sliderSectionRef}>
             <div className="selected-header">
               <button
                 className="view-btn back-btn"
@@ -236,7 +256,10 @@ export default function MyAlbums() {
                       {album.id === selectedAlbum.id && (
                         <button
                           className="remove-btn"
-                          onClick={() => handleRemoveAlbum(album.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveAlbum(album.id);
+                          }}
                         >
                           - Remove album
                         </button>
@@ -278,7 +301,10 @@ export default function MyAlbums() {
                       <button
                         className="remove-album-btn"
                         style={{ marginTop: "auto" }}
-                        onClick={() => handleRemoveAlbum(album.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveAlbum(album.id);
+                        }}
                       >
                         - Remove album
                       </button>
