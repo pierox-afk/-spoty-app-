@@ -120,9 +120,13 @@
   }
 
   .add-btn {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 0.4rem;
+    font-size: 0.7rem;
     width: 100%;
     white-space: normal;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
