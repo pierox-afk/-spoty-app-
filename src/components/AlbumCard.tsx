@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import type { Album } from "../spotify";
 import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
@@ -19,6 +20,7 @@ export const AlbumCard = ({
 }: AlbumCardProps) => {
   const imageUrl = album.images[0]?.url || PLACEHOLDER_IMAGE;
   const { token } = useAuthContext();
+  const navigate = useNavigate();
   const [isSaved, setIsSaved] = useState(isInitiallySaved);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -55,7 +57,7 @@ export const AlbumCard = ({
   };
 
   return (
-    <div className="album-card">
+    <div className="album-card" onClick={() => navigate(`/album/${album.id}`)}>
       <div className="album-card-image-container">
         <img src={imageUrl} alt={album.name} className="album-card-image" />
       </div>
@@ -65,7 +67,10 @@ export const AlbumCard = ({
       </div>
       <button
         className="add-btn"
-        onClick={handleToggleSave}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleToggleSave();
+        }}
         disabled={isSaving}
         aria-label={isSaved ? "Quitar álbum" : "Añadir álbum"}
       >

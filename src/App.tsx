@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
 import MyAlbums from "./pages/MyAlbums";
+import AlbumTracksPage from "./pages/AlbumTracksPage";
 import { getAccessToken } from "./hooks/useAuth";
 import { useAuthContext } from "./AuthContext";
 import { ModalProvider } from "./ModalContext";
@@ -70,6 +71,14 @@ function App() {
           element={
             <ProtectedRoute>
               <MyAlbums />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/album/:id"
+          element={
+            <ProtectedRoute>
+              <AlbumTracksPage />
             </ProtectedRoute>
           }
         />

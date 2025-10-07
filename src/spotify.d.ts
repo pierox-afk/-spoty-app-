@@ -17,6 +17,19 @@ export interface Album {
   release_date: string;
 }
 
+export interface Track {
+  id: string;
+  name: string;
+  artists: Artist[];
+  duration_ms: number;
+  track_number: number;
+}
+
+export interface AlbumTracks {
+  items: Track[];
+  total: number;
+}
+
 export interface SearchResponse {
   albums: {
     items: Album[];
