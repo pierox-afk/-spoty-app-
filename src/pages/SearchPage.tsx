@@ -148,10 +148,11 @@ export default function SearchPage() {
           <form className="search-form" onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
-              placeholder=""
+              placeholder="Buscar álbumes, artistas..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="search-input"
+              autoFocus
             />
             <button type="submit" className="search-button">
               Search
