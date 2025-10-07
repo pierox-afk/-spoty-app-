@@ -57,7 +57,7 @@ export const AlbumCard = ({
   };
 
   return (
-    <div className="album-card" onClick={() => navigate(`/album/${album.id}`)}>
+    <div className="album-card">
       <div className="album-card-image-container">
         <img src={imageUrl} alt={album.name} className="album-card-image" />
       </div>
@@ -65,18 +65,24 @@ export const AlbumCard = ({
         <h3 className="album-card-name">{album.name}</h3>
         <p className="album-card-date">Publicado: {album.release_date}</p>
       </div>
-      <button
-        className="add-btn"
-        onClick={(e) => {
-          e.stopPropagation();
-          handleToggleSave();
-        }}
-        disabled={isSaving}
-        aria-label={isSaved ? "Quitar álbum" : "Añadir álbum"}
-      >
-        {isSaving && "..."}
-        {!isSaving && (isSaved ? "✓ Added" : "+ Add album")}
-      </button>
+      <div className="album-buttons">
+        <button
+          className="view-btn"
+          onClick={() => navigate(`/album/${album.id}`)}
+          aria-label="Ver canciones del álbum"
+        >
+          Ver canciones
+        </button>
+        <button
+          className="add-btn"
+          onClick={handleToggleSave}
+          disabled={isSaving}
+          aria-label={isSaved ? "Quitar álbum" : "Añadir álbum"}
+        >
+          {isSaving && "..."}
+          {!isSaving && (isSaved ? "✓ Added" : "+ Add album")}
+        </button>
+      </div>
     </div>
   );
 };
