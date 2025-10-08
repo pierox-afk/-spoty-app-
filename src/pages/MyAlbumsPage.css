@@ -14,8 +14,9 @@
 
 .albums-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .album-card {
@@ -213,59 +214,8 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .albums-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-  }
-
-  .album-image {
-    width: 120px;
-    height: 120px;
-  }
-
-  .album-info h3 {
-    font-size: 0.9rem;
-  }
-
-  .album-info p {
-    font-size: 0.8rem;
-  }
-
-  .view-btn,
-  .remove-album-btn {
-    padding: 6px 10px;
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .albums-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 10px;
-  }
-
-  .album-card {
-    padding: 10px;
-  }
-
-  .album-image {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
-  }
-
-  .album-info h3 {
-    font-size: 0.85rem;
-  }
-
-  .album-info p {
-    font-size: 0.75rem;
-  }
-
-  .view-btn,
-  .remove-album-btn {
-    padding: 5px 8px;
-    font-size: 0.75rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -204,6 +204,13 @@ export default function MyAlbums() {
 
   const groupedAlbums = groupByArtist(albums);
 
+  // Sort artists alphabetically
+  const sortedArtists = Object.keys(groupedAlbums).sort();
+  const sortedGroupedAlbums: { [key: string]: Album[] } = {};
+  sortedArtists.forEach((artist) => {
+    sortedGroupedAlbums[artist] = groupedAlbums[artist];
+  });
+
   return (
     <div className="page-container">
       <Header />
@@ -286,7 +293,7 @@ export default function MyAlbums() {
           </section>
         ) : (
           <section className="albums-section">
-            {Object.entries(groupedAlbums).map(([artist, artistAlbums]) => (
+            {Object.entries(sortedGroupedAlbums).map(([artist, artistAlbums]) => (
               <div key={artist} className="artist-group">
                 <h2>{artist}</h2>
                 <div className="albums-grid">
