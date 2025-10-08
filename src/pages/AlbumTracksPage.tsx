@@ -86,6 +86,10 @@ export default function AlbumTracksPage() {
     // The MusicPlayer component will handle the actual playback
   };
 
+  const getCurrentTrackWithAlbum = (track: Track) => {
+    return { ...track, album };
+  };
+
   const playNext = () => {
     if (currentTrackIndex < tracks.length - 1) {
       const nextIndex = currentTrackIndex + 1;

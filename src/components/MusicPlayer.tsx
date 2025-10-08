@@ -7,6 +7,9 @@ interface Track {
   artists: { name: string }[];
   duration_ms: number;
   preview_url?: string;
+  external_urls?: {
+    spotify: string;
+  };
   album?: {
     images: { url: string }[];
     name: string;
@@ -66,6 +69,10 @@ export const MusicPlayer = ({
   const togglePlay = async () => {
     if (!currentTrack?.preview_url) {
       console.warn("No preview URL available for:", currentTrack?.name);
+      // Open in Spotify Web Player as fallback
+      if (currentTrack?.external_urls?.spotify) {
+        window.open(currentTrack.external_urls.spotify, "_blank");
+      }
       return;
     }
 
@@ -78,6 +85,8 @@ export const MusicPlayer = ({
           // Ensure audio is loaded before playing
           if (audioRef.current.readyState === 0) {
             audioRef.current.load();
+            // Wait a bit for loading
+            await new Promise((resolve) => setTimeout(resolve, 500));
           }
           await audioRef.current.play();
           setIsPlaying(true);
@@ -91,10 +100,16 @@ export const MusicPlayer = ({
           currentTrack?.preview_url
         );
         setIsPlaying(false);
-        // Try to play with user gesture
-        alert(
-          "No se pudo reproducir la canción. Haz click en el botón de play nuevamente."
-        );
+
+        // Fallback: Open in Spotify Web Player
+        if (currentTrack?.external_urls?.spotify) {
+          console.log("Opening in Spotify Web Player as fallback");
+          window.open(currentTrack.external_urls.spotify, "_blank");
+        } else {
+          alert(
+            "No se pudo reproducir la canción. Inténtalo de nuevo o usa Spotify."
+          );
+        }
       }
     }
   };
