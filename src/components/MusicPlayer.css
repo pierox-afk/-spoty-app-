@@ -1,0 +1,265 @@
+.music-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(29, 29, 29, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.player-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 250px;
+}
+
+.track-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.track-details h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.track-details p {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.8rem;
+  color: #b3b3b3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.control-btn,
+.play-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn:hover:not(:disabled),
+.play-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.play-btn {
+  background: var(--highlight);
+  color: #000;
+  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+}
+
+.play-btn:hover {
+  background: var(--highlight);
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  max-width: 400px;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: #b3b3b3;
+  min-width: 35px;
+  text-align: center;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--highlight);
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--highlight);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.volume-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.volume-icon {
+  font-size: 1rem;
+  color: #b3b3b3;
+}
+
+.volume-slider {
+  width: 80px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--highlight);
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--highlight);
+  cursor: pointer;
+  border: none;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .music-player {
+    padding: 0.75rem 1rem;
+  }
+
+  .player-content {
+    gap: 1rem;
+  }
+
+  .track-info {
+    min-width: 200px;
+  }
+
+  .track-details h4,
+  .track-details p {
+    max-width: 140px;
+  }
+
+  .progress-section {
+    max-width: 200px;
+  }
+
+  .volume-section {
+    min-width: 100px;
+  }
+
+  .volume-slider {
+    width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-content {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .track-info {
+    min-width: 150px;
+  }
+
+  .progress-section {
+    order: 3;
+    width: 100%;
+    max-width: none;
+    justify-content: center;
+  }
+
+  .volume-section {
+    order: 4;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}

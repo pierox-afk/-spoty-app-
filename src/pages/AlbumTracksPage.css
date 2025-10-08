@@ -91,7 +91,6 @@
   padding: 1.5rem 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  cursor: pointer;
 }
 
 .track-item:hover {
@@ -104,12 +103,12 @@
 }
 
 .track-number {
-  width: 50px;
+  width: 40px;
   text-align: center;
   font-weight: 700;
   color: var(--highlight);
   font-size: 1.2rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 }
 
 .track-name {
@@ -133,4 +132,27 @@
   font-weight: 500;
   text-align: right;
   min-width: 60px;
+}
+
+.play-track-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  margin-right: 0.5rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-track-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--highlight);
+  transform: scale(1.1);
 }

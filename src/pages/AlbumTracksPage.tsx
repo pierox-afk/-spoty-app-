@@ -7,6 +7,7 @@ import { useModal } from "../hooks/useModal";
 import { Header } from "../components/Header";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
+import { MusicPlayer } from "../components/MusicPlayer";
 import "../components/Page.css";
 import "./AlbumTracksPage.css";
 
@@ -19,6 +20,8 @@ export default function AlbumTracksPage() {
   const [album, setAlbum] = useState<Album | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(-1);
 
   useEffect(() => {
     const fetchAlbumAndTracks = async () => {
@@ -76,6 +79,35 @@ export default function AlbumTracksPage() {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
+  const playTrack = (track: Track, index: number) => {
+    const trackWithAlbum = { ...track, album };
+    setCurrentTrack(trackWithAlbum);
+    setCurrentTrackIndex(index);
+  };
+
+  const playNext = () => {
+    if (currentTrackIndex < tracks.length - 1) {
+      const nextIndex = currentTrackIndex + 1;
+      const nextTrack = { ...tracks[nextIndex], album };
+      setCurrentTrack(nextTrack);
+      setCurrentTrackIndex(nextIndex);
+    }
+  };
+
+  const playPrevious = () => {
+    if (currentTrackIndex > 0) {
+      const prevIndex = currentTrackIndex - 1;
+      const prevTrack = { ...tracks[prevIndex], album };
+      setCurrentTrack(prevTrack);
+      setCurrentTrackIndex(prevIndex);
+    }
+  };
+
+  const closePlayer = () => {
+    setCurrentTrack(null);
+    setCurrentTrackIndex(-1);
+  };
+
   const renderContent = () => {
     if (isLoading) return <Spinner />;
     if (error) return <Message type="error" text={`Error: ${error}`} />;
@@ -101,8 +133,15 @@ export default function AlbumTracksPage() {
         <div className="tracks-list">
           <h2>Canciones</h2>
           <ul>
-            {tracks.map((track) => (
+            {tracks.map((track, index) => (
               <li key={track.id} className="track-item">
+                <button
+                  className="play-track-btn"
+                  onClick={() => playTrack(track, index)}
+                  aria-label={`Reproducir ${track.name}`}
+                >
+                  {currentTrack?.id === track.id ? '⏸️' : '▶️'}
+                </button>
                 <span className="track-number">{track.track_number}.</span>
                 <span className="track-name">{track.name}</span>
                 <span className="track-artists">
@@ -130,6 +169,12 @@ export default function AlbumTracksPage() {
           {renderContent()}
         </section>
       </main>
+      <MusicPlayer
+        currentTrack={currentTrack}
+        onClose={closePlayer}
+        onNext={currentTrackIndex < tracks.length - 1 ? playNext : undefined}
+        onPrevious={currentTrackIndex > 0 ? playPrevious : undefined}
+      />
     </div>
   );
 }
