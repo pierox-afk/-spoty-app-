@@ -1,19 +1,23 @@
 .album-tracks-section {
-  padding: 20px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+  min-height: 100vh;
+  color: white;
 }
 
 .back-button {
-  background: #1db954;
-  color: white;
+  background: var(--highlight);
+  color: #000;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 20px;
+  transition: opacity 0.2s;
 }
 
 .back-button:hover {
-  background: #1aa34a;
+  opacity: 0.9;
 }
 
 .album-tracks-container {
@@ -24,61 +28,109 @@
 .album-header {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .album-cover {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-right: 20px;
+  border-radius: 15px;
+  margin-right: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .album-info h1 {
-  margin: 0 0 10px 0;
-  font-size: 2em;
+  margin: 0 0 1rem 0;
+  font-size: 2.5em;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--highlight), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .album-info p {
-  margin: 5px 0;
-  color: #666;
+  margin: 0.5rem 0;
+  color: #b3b3b3;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .tracks-list h2 {
-  margin-bottom: 20px;
-  font-size: 1.5em;
+  margin-bottom: 2rem;
+  font-size: 2em;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  background: linear-gradient(45deg, var(--highlight), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .tracks-list ul {
   list-style: none;
   padding: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .track-item {
   display: flex;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.track-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(10px);
+}
+
+.track-item:last-child {
+  border-bottom: none;
 }
 
 .track-number {
-  width: 30px;
+  width: 50px;
   text-align: center;
-  font-weight: bold;
-  color: #666;
+  font-weight: 700;
+  color: var(--highlight);
+  font-size: 1.2rem;
+  margin-right: 1rem;
 }
 
 .track-name {
-  flex: 1;
-  font-weight: bold;
+  flex: 2;
+  font-weight: 600;
+  color: white;
+  font-size: 1.1rem;
+  margin-right: 1rem;
 }
 
 .track-artists {
   flex: 1;
-  color: #666;
+  color: #b3b3b3;
+  font-size: 1rem;
+  margin-right: 1rem;
 }
 
 .track-duration {
-  color: #666;
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: right;
+  min-width: 60px;
 }

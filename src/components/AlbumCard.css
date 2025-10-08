@@ -74,12 +74,12 @@
 }
 
 .view-btn {
-  background-color: #1db954;
-  color: white;
+  background-color: var(--highlight);
+  color: #000;
 }
 
 .view-btn:hover {
-  background-color: #1aa34a;
+  opacity: 0.9;
 }
 
 .add-btn {

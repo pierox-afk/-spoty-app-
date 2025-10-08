@@ -487,8 +487,8 @@
 }
 
 .view-btn {
-  background-color: #1db954;
-  color: white;
+  background-color: var(--highlight);
+  color: #000;
   padding: 0.75rem 1rem;
   border: none;
   border-radius: 25px;
@@ -501,7 +501,7 @@
 }
 
 .view-btn:hover {
-  background-color: #1aa34a;
+  opacity: 0.9;
 }
 
 .remove-album-btn {
@@ -747,18 +747,18 @@
 }
 
 .selected-slider-info .view-btn {
-  background-color: #1db954;
-  color: white;
+  background-color: var(--highlight);
+  color: #000;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background-color 0.2s;
+  transition: opacity 0.2s;
 }
 
 .selected-slider-info .view-btn:hover {
-  background-color: #1aa34a;
+  opacity: 0.9;
 }
 
 .selected-slider-info .remove-btn {
