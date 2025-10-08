@@ -35,6 +35,12 @@ export const MusicPlayer = ({
   useEffect(() => {
     if (currentTrack && audioRef.current) {
       if (currentTrack.preview_url) {
+        console.log(
+          "Loading track:",
+          currentTrack.name,
+          "URL:",
+          currentTrack.preview_url
+        );
         audioRef.current.src = currentTrack.preview_url;
         audioRef.current.load();
         // Don't auto-play, let user control playback
@@ -59,7 +65,7 @@ export const MusicPlayer = ({
 
   const togglePlay = async () => {
     if (!currentTrack?.preview_url) {
-      // No preview available
+      console.warn("No preview URL available for:", currentTrack?.name);
       return;
     }
 
@@ -69,12 +75,26 @@ export const MusicPlayer = ({
           audioRef.current.pause();
           setIsPlaying(false);
         } else {
+          // Ensure audio is loaded before playing
+          if (audioRef.current.readyState === 0) {
+            audioRef.current.load();
+          }
           await audioRef.current.play();
           setIsPlaying(true);
         }
       } catch (error) {
         console.error("Error playing audio:", error);
+        console.error(
+          "Track:",
+          currentTrack?.name,
+          "URL:",
+          currentTrack?.preview_url
+        );
         setIsPlaying(false);
+        // Try to play with user gesture
+        alert(
+          "No se pudo reproducir la canción. Haz click en el botón de play nuevamente."
+        );
       }
     }
   };
@@ -119,7 +139,14 @@ export const MusicPlayer = ({
         }}
         onPause={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}
+        onLoadStart={() => console.log("Audio load started")}
+        onCanPlay={() => console.log("Audio can play")}
+        onError={(e) => {
+          console.error("Audio error:", e);
+          setIsPlaying(false);
+        }}
         preload="metadata"
+        crossOrigin="anonymous"
       />
 
       <div className="player-content">
