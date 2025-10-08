@@ -4,7 +4,7 @@ import { spotifyFetch } from "../spotifyClient";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
 import { Header } from "../components/Header";
-import { useModal } from "../ModalContext";
+import { useModal } from "../hooks/useModal";
 import type { Album } from "../spotify";
 
 import "../components/Page.css";

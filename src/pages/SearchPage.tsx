@@ -3,7 +3,7 @@ import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import type { Album, SearchResponse } from "../spotify";
 import { useDebounce } from "../hooks/useDebounce";
-import { useModal } from "../ModalContext";
+import { useModal } from "../hooks/useModal";
 
 import "../components/Page.css";
 import Pagination from "../components/Pagination";

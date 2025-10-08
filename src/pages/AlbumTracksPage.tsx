@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import type { Track, AlbumTracks, Album } from "../spotify";
-import { useModal } from "../ModalContext";
+import { useModal } from "../hooks/useModal";
 import { Header } from "../components/Header";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
