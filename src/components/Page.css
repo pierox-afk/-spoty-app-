@@ -375,6 +375,16 @@
   cursor: pointer;
 }
 
+.back-btn.view-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+}
+
 .back-btn:hover {
   color: var(--highlight);
   background: none;
