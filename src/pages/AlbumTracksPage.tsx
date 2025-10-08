@@ -83,6 +83,7 @@ export default function AlbumTracksPage() {
     const trackWithAlbum = { ...track, album };
     setCurrentTrack(trackWithAlbum);
     setCurrentTrackIndex(index);
+    // The MusicPlayer component will handle the actual playback
   };
 
   const playNext = () => {
@@ -134,7 +135,12 @@ export default function AlbumTracksPage() {
           <h2>Canciones</h2>
           <ul>
             {tracks.map((track, index) => (
-              <li key={track.id} className="track-item">
+              <li
+                key={track.id}
+                className={`track-item ${
+                  currentTrack?.id === track.id ? "playing" : ""
+                }`}
+              >
                 <button
                   className="play-track-btn"
                   onClick={() => playTrack(track, index)}

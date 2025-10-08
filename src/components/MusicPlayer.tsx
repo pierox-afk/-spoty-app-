@@ -37,14 +37,15 @@ export const MusicPlayer = ({
       if (currentTrack.preview_url) {
         audioRef.current.src = currentTrack.preview_url;
         audioRef.current.load();
-        setIsPlaying(true);
-        audioRef.current.play().catch((error) => {
-          console.warn("Preview not available:", error);
-          setIsPlaying(false);
-        });
+        // Don't auto-play, let user control playback
+        setIsPlaying(false);
+        setCurrentTime(0);
+        setDuration(0);
       } else {
         // No preview available
         setIsPlaying(false);
+        setCurrentTime(0);
+        setDuration(0);
         console.warn("No preview URL available for track:", currentTrack.name);
       }
     }
@@ -56,21 +57,25 @@ export const MusicPlayer = ({
     }
   }, [volume]);
 
-  const togglePlay = () => {
+  const togglePlay = async () => {
     if (!currentTrack?.preview_url) {
       // No preview available
       return;
     }
 
     if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play().catch(() => {
-          // Preview might not be available
-        });
+      try {
+        if (isPlaying) {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        } else {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        }
+      } catch (error) {
+        console.error("Error playing audio:", error);
+        setIsPlaying(false);
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -112,6 +117,9 @@ export const MusicPlayer = ({
           setIsPlaying(false);
           onNext?.();
         }}
+        onPause={() => setIsPlaying(false)}
+        onPlay={() => setIsPlaying(true)}
+        preload="metadata"
       />
 
       <div className="player-content">
