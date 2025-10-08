@@ -46,12 +46,10 @@ export const MusicPlayer = ({
         );
         audioRef.current.src = currentTrack.preview_url;
         audioRef.current.load();
-        // Don't auto-play, let user control playback
         setIsPlaying(false);
         setCurrentTime(0);
         setDuration(0);
       } else {
-        // No preview available
         setIsPlaying(false);
         setCurrentTime(0);
         setDuration(0);

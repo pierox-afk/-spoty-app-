@@ -31,7 +31,6 @@ export default function AlbumTracksPage() {
       setError(null);
 
       try {
-        // Fetch album details
         const albumData = await spotifyFetch<Album>(
           `/albums/${id}`,
           token,
@@ -44,7 +43,6 @@ export default function AlbumTracksPage() {
         );
         setAlbum(albumData);
 
-        // Fetch tracks
         const tracksData = await spotifyFetch<AlbumTracks>(
           `/albums/${id}/tracks`,
           token,
@@ -80,10 +78,15 @@ export default function AlbumTracksPage() {
   };
 
   const playTrack = (track: Track, index: number) => {
+    console.log(
+      "Playing track:",
+      track.name,
+      "Preview URL:",
+      track.preview_url
+    );
     const trackWithAlbum = { ...track, album };
     setCurrentTrack(trackWithAlbum);
     setCurrentTrackIndex(index);
-    // The MusicPlayer component will handle the actual playback
   };
 
   const getCurrentTrackWithAlbum = (track: Track) => {
