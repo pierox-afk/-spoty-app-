@@ -5,9 +5,6 @@ interface Track {
   name: string;
   artists: { name: string }[];
   duration_ms: number;
-  external_urls?: {
-    spotify: string;
-  };
   album?: {
     images: { url: string }[];
     name: string;
@@ -28,11 +25,16 @@ export const MusicPlayer = ({
   onPrevious,
 }: MusicPlayerProps) => {
   const openInSpotify = () => {
-    if (currentTrack?.external_urls?.spotify) {
-      console.log("Opening track in Spotify Web Player:", currentTrack.name);
-      window.open(currentTrack.external_urls.spotify, "_blank");
+    if (currentTrack?.id) {
+      const spotifyUrl = `https://open.spotify.com/track/${currentTrack.id}`;
+      console.log(
+        "Opening track in Spotify Web Player:",
+        currentTrack.name,
+        spotifyUrl
+      );
+      window.open(spotifyUrl, "_blank");
     } else {
-      console.warn("No Spotify URL available for:", currentTrack?.name);
+      console.warn("No track ID available for:", currentTrack?.name);
       alert("No se pudo abrir la canción en Spotify.");
     }
   };
