@@ -204,8 +204,10 @@ export default function MyAlbums() {
 
   const groupedAlbums = groupByArtist(albums);
 
-  // Sort artists alphabetically
-  const sortedArtists = Object.keys(groupedAlbums).sort();
+  // Sort artists by number of albums (descending)
+  const sortedArtists = Object.keys(groupedAlbums).sort((a, b) => {
+    return groupedAlbums[b].length - groupedAlbums[a].length;
+  });
   const sortedGroupedAlbums: { [key: string]: Album[] } = {};
   sortedArtists.forEach((artist) => {
     sortedGroupedAlbums[artist] = groupedAlbums[artist];
@@ -293,57 +295,60 @@ export default function MyAlbums() {
           </section>
         ) : (
           <section className="albums-section">
-            {Object.entries(sortedGroupedAlbums).map(([artist, artistAlbums]) => (
-              <div key={artist} className="artist-group">
-                <h2>{artist}</h2>
-                <div className="albums-grid">
-                  {artistAlbums.map((album) => (
-                    <div
-                      key={album.id}
-                      className="album-card"
-                      draggable
-                      onDragStart={() => handleDragStart(album)}
-                      onDragOver={handleDragOver}
-                      onDrop={(e) => handleDrop(e, album)}
-                      onClick={() => setSelectedAlbum(album)}
-                    >
-                      <img
-                        src={album.images[0]?.url || ""}
-                        alt={album.name}
-                        className="album-image"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.opacity = "0.3";
-                        }}
-                      />
-                      <div className="album-info">
-                        <h3>{album.name}</h3>
-                        <p>Publicado: {album.release_date}</p>
-                      </div>
-                      <div className="album-buttons">
-                        <button
-                          className="view-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/album/${album.id}`);
+            {Object.entries(sortedGroupedAlbums).map(
+              ([artist, artistAlbums]) => (
+                <div key={artist} className="artist-group">
+                  <h2>{artist}</h2>
+                  <div className="albums-grid">
+                    {artistAlbums.map((album) => (
+                      <div
+                        key={album.id}
+                        className="album-card"
+                        draggable
+                        onDragStart={() => handleDragStart(album)}
+                        onDragOver={handleDragOver}
+                        onDrop={(e) => handleDrop(e, album)}
+                        onClick={() => setSelectedAlbum(album)}
+                      >
+                        <img
+                          src={album.images[0]?.url || ""}
+                          alt={album.name}
+                          className="album-image"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.opacity =
+                              "0.3";
                           }}
-                        >
-                          Ver canciones
-                        </button>
-                        <button
-                          className="remove-album-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleRemoveAlbum(album.id);
-                          }}
-                        >
-                          - Remove album
-                        </button>
+                        />
+                        <div className="album-info">
+                          <h3>{album.name}</h3>
+                          <p>Publicado: {album.release_date}</p>
+                        </div>
+                        <div className="album-buttons">
+                          <button
+                            className="view-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/album/${album.id}`);
+                            }}
+                          >
+                            Ver canciones
+                          </button>
+                          <button
+                            className="remove-album-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveAlbum(album.id);
+                            }}
+                          >
+                            - Remove album
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </section>
         )}
       </main>
