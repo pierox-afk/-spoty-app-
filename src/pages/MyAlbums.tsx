@@ -9,6 +9,7 @@ import { useModal } from "../hooks/useModal";
 import type { Album } from "../spotify";
 
 import "../components/Page.css";
+import "./MyAlbumsPage.css";
 
 export default function MyAlbums() {
   const { token, logout } = useAuthContext();
