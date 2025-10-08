@@ -379,10 +379,17 @@
   background: none;
   border: none;
   padding: 0;
-  color: var(--text-color);
+
   font-weight: normal;
   font-size: inherit;
   text-decoration: none;
+}
+
+.back-btn.view-btn:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--highlight);
+  box-shadow: none;
 }
 
 .back-btn:hover {
@@ -473,8 +480,31 @@
   overflow: hidden;
 }
 
-.remove-album-btn {
+.album-buttons {
   margin-top: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-btn {
+  background-color: #1db954;
+  color: white;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.view-btn:hover {
+  background-color: #1aa34a;
+}
+
+.remove-album-btn {
   padding: 0.75rem 1rem;
   border: none;
   background-color: #d94a3d;
@@ -483,7 +513,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
-  width: 50%;
+  flex: 1;
   z-index: 2;
   white-space: nowrap;
 }
@@ -708,6 +738,27 @@
   color: #000;
   font-size: 0.85rem;
   font-weight: bold;
+}
+
+.selected-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.selected-slider-info .view-btn {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.selected-slider-info .view-btn:hover {
+  background-color: #1aa34a;
 }
 
 .selected-slider-info .remove-btn {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import { Spinner } from "../components/Spinner";
@@ -12,6 +13,7 @@ import "../components/Page.css";
 export default function MyAlbums() {
   const { token, logout } = useAuthContext();
   const { showModal } = useModal();
+  const navigate = useNavigate();
   const [albums, setAlbums] = useState<Album[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -254,15 +256,26 @@ export default function MyAlbums() {
                         <p>Publicado: {album.release_date}</p>
                       </div>
                       {album.id === selectedAlbum.id && (
-                        <button
-                          className="remove-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleRemoveAlbum(album.id);
-                          }}
-                        >
-                          - Remove album
-                        </button>
+                        <div className="selected-buttons">
+                          <button
+                            className="view-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/album/${album.id}`);
+                            }}
+                          >
+                            Ver canciones
+                          </button>
+                          <button
+                            className="remove-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveAlbum(album.id);
+                            }}
+                          >
+                            - Remove album
+                          </button>
+                        </div>
                       )}
                     </div>
                   )}
@@ -298,16 +311,26 @@ export default function MyAlbums() {
                         <h3>{album.name}</h3>
                         <p>Publicado: {album.release_date}</p>
                       </div>
-                      <button
-                        className="remove-album-btn"
-                        style={{ marginTop: "auto" }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRemoveAlbum(album.id);
-                        }}
-                      >
-                        - Remove album
-                      </button>
+                      <div className="album-buttons">
+                        <button
+                          className="view-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/album/${album.id}`);
+                          }}
+                        >
+                          Ver canciones
+                        </button>
+                        <button
+                          className="remove-album-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveAlbum(album.id);
+                          }}
+                        >
+                          - Remove album
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
