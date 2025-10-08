@@ -14,14 +14,15 @@
 
 .albums-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, 320px);
   gap: 1.5rem;
   margin-top: 2rem;
+  justify-content: center;
 }
 
 .album-card {
   background-color: var(--bg-color);
-  border-radius: 8px;
+  border-radius: 24px;
   padding: 15px;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -29,6 +30,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 320px;
+  height: 469px;
 }
 
 .album-card:hover {
@@ -214,8 +217,26 @@
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .albums-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, 320px);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .albums-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .album-card {
+    width: 280px;
+    height: 420px;
+  }
+
+  .album-image {
+    width: 120px;
+    height: 120px;
   }
 }
