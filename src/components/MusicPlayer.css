@@ -268,3 +268,19 @@
     right: 0.5rem;
   }
 }
+
+.spotify-message {
+  text-align: center;
+  margin: 1rem 0;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+.spotify-message span {
+  background: linear-gradient(45deg, #1db954, #1ed760);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
