@@ -140,7 +140,25 @@ export default function AlbumTracksPage() {
                   onClick={() => playTrack(track, index)}
                   aria-label={`Reproducir ${track.name}`}
                 >
-                  {currentTrack?.id === track.id ? '⏸️' : '▶️'}
+                  {currentTrack?.id === track.id ? (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  )}
                 </button>
                 <span className="track-number">{track.track_number}.</span>
                 <span className="track-name">{track.name}</span>

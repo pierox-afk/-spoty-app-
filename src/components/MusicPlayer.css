@@ -95,10 +95,15 @@
   height: 50px;
 }
 
-.play-btn:hover {
+.play-btn:hover:not(.disabled) {
   background: var(--highlight);
   opacity: 0.9;
   transform: scale(1.05);
+}
+
+.play-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .progress-section {

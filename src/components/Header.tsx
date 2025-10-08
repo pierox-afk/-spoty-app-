@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../AuthContext";
 import { useState, useEffect } from "react";
-import logo from "../img/Shape (1).png";
 import "./Header.css";
 
 export const Header = () => {
@@ -31,7 +30,7 @@ export const Header = () => {
   return (
     <header className="app-header">
       <Link to="/search" className="app-logo-link">
-        <img src={logo} alt="Logo de Spoty" className="app-logo" />
+        <span className="app-logo-text">Spoty</span>
       </Link>
       <nav className="app-nav">
         {token && (

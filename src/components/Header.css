@@ -13,10 +13,12 @@
   height: 87px;
 }
 
-.app-logo {
-  height: 24px;
-  width: 133px;
-  opacity: 1;
+.app-logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--highlight);
+  text-decoration: none;
+  letter-spacing: -0.02em;
 }
 
 .app-nav {
@@ -54,9 +56,8 @@
     height: 70px;
   }
 
-  .app-logo {
-    height: 20px;
-    width: 100px;
+  .app-logo-text {
+    font-size: 1.3rem;
   }
 
   .app-nav {
@@ -80,9 +81,8 @@
     height: 60px;
   }
 
-  .app-logo {
-    height: 18px;
-    width: 80px;
+  .app-logo-text {
+    font-size: 1.1rem;
   }
 
   .app-nav {
