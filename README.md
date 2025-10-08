@@ -132,7 +132,7 @@ Este proyecto está bajo la Licencia MIT.
 
 ## Autor
 
-[Piero] - [piero.asch@gmail.com]
+Pierox-afk- piero.asch@gmail.com
 
 ---
 
