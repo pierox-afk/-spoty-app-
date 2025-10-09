@@ -98,6 +98,7 @@ export default function CustomAlbumDetailPage() {
   };
 
   const addTrackToAlbum = async (track: Track) => {
+    console.log("addTrackToAlbum called with track:", track.name);
     if (!album || !id) return;
 
     const manager = CustomAlbumManager.getInstance();
@@ -179,6 +180,8 @@ export default function CustomAlbumDetailPage() {
           <h2>Agregar canciones</h2>
           <div className="search-container">
             <input
+              id="search-input"
+              name="search"
               type="text"
               placeholder="Buscar canciones..."
               value={searchQuery}
