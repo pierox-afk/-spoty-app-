@@ -198,10 +198,11 @@
 }
 
 .selected-slider-image {
-  width: 400px;
-  height: 400px;
+  width: 200vw;
+  height: 40vh;
   border-radius: 8px;
   object-fit: cover;
+  max-width: 100%;
 }
 
 .selected-slider-info {

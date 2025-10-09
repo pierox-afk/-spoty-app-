@@ -5,7 +5,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 469px;
+  height: 350px;
 }
 
 .album-card:hover {
@@ -24,7 +24,7 @@
 .album-card-image-container {
   position: relative;
   margin-bottom: 1rem;
-  height: 280px;
+  height: 200px;
 }
 
 .album-card-image {

@@ -1,15 +1,30 @@
 .album-details-header {
+  position: absolute;
+  width: 663px;
+  height: 401px;
+  top: 543px;
+  left: 412px;
+  border-radius: 24px;
+  transform: rotate(0deg);
+  opacity: 1;
   display: flex;
   align-items: center;
   gap: 2rem;
   margin-bottom: 3rem;
+  background-color: var(--bg-color);
+  padding: 1rem;
 }
 
 .album-details-image {
-  width: 200px;
-  height: 200px;
+  width: 615px;
+  height: 241px;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  border-radius: 12px;
+  transform: rotate(0deg);
+  opacity: 0.8;
   object-fit: cover;
-  border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
