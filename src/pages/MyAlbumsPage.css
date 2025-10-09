@@ -370,9 +370,11 @@
 .modal-content {
   background-color: var(--card-bg);
   border-radius: 12px;
-  padding: 30px;
-  max-width: 400px;
-  width: 90%;
+  padding: 40px;
+  max-width: 500px;
+  width: 95%;
+  max-height: 80vh;
+  overflow-y: auto;
   border: 1px solid var(--border-color);
 }
 
@@ -395,12 +397,13 @@
 
 .form-group input {
   width: 100%;
-  padding: 12px;
+  padding: 16px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: var(--input-bg);
   color: var(--text-color);
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
@@ -441,4 +444,32 @@
 
 .create-btn:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 30px 20px;
+    margin: 20px;
+    max-width: none;
+    width: calc(100% - 40px);
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group input {
+    padding: 14px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .cancel-btn,
+  .create-btn {
+    width: 100%;
+    padding: 14px;
+  }
 }
