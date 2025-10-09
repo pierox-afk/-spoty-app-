@@ -85,6 +85,10 @@ export default function CustomAlbumDetailPage() {
     };
 
     manager.addTrackToAlbum(id, customTrack);
+
+    // Remove track from search results
+    setSearchResults((prev) => prev.filter((t) => t.id !== track.id));
+
     // Force re-render by updating album state
     const updatedAlbum = manager.getAlbumById(id);
     if (updatedAlbum) {
