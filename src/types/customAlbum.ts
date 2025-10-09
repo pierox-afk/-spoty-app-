@@ -118,8 +118,14 @@ export class CustomAlbumManager {
   }
 
   async updateAlbumCoverFromMostFrequentArtist(albumId: string, token: string) {
+    console.log("Updating album cover for album:", albumId);
     const album = this.getAlbumById(albumId);
-    if (!album || album.tracks.length === 0) return;
+    if (!album || album.tracks.length === 0) {
+      console.log("No album or no tracks found");
+      return;
+    }
+
+    console.log("Album tracks:", album.tracks.length);
 
     // Count tracks per artist
     const artistCount: {
@@ -127,6 +133,7 @@ export class CustomAlbumManager {
     } = {};
 
     album.tracks.forEach((track) => {
+      console.log("Processing track:", track.name, "artists:", track.artists);
       track.artists.forEach((artist) => {
         if (!artistCount[artist.id]) {
           artistCount[artist.id] = { count: 0, artist };
@@ -135,20 +142,26 @@ export class CustomAlbumManager {
       });
     });
 
+    console.log("Artist count:", artistCount);
+
     // Find artist with most tracks
     let mostFrequentArtist: Artist | null = null;
     let maxCount = 0;
 
     for (const artistId in artistCount) {
       const { count, artist } = artistCount[artistId];
+      console.log("Artist:", artist.name, "count:", count);
       if (count > maxCount) {
         maxCount = count;
         mostFrequentArtist = artist;
       }
     }
 
+    console.log("Most frequent artist:", mostFrequentArtist);
+
     if (mostFrequentArtist && mostFrequentArtist.id) {
       try {
+        console.log("Fetching artist image for:", mostFrequentArtist.name, mostFrequentArtist.id);
         // Fetch artist image from Spotify
         const response = await fetch(
           `https://api.spotify.com/v1/artists/${mostFrequentArtist.id}`,
@@ -159,17 +172,29 @@ export class CustomAlbumManager {
           }
         );
 
+        console.log("Response status:", response.status);
+
         if (response.ok) {
           const artistData = await response.json();
+          console.log("Artist data:", artistData);
           const imageUrl = artistData.images?.[0]?.url;
+
+          console.log("Image URL:", imageUrl);
 
           if (imageUrl) {
             this.updateAlbum(albumId, { coverUrl: imageUrl });
+            console.log("Album cover updated successfully");
+          } else {
+            console.log("No image URL found");
           }
+        } else {
+          console.error("Response not ok:", response.status, response.statusText);
         }
       } catch (error) {
         console.error("Error fetching artist image:", error);
       }
+    } else {
+      console.log("No most frequent artist found");
     }
   }
 }
