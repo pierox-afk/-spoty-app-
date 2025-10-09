@@ -1,13 +1,17 @@
 .album-tracks-section {
   padding: 2rem;
-  background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+  background: var(--bg-color);
   min-height: 100vh;
-  color: white;
+  color: var(--text-color);
+}
+
+body.light .album-tracks-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
 .back-button {
   background: var(--highlight);
-  color: #000;
+  color: var(--button-text);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -30,10 +34,15 @@
   align-items: center;
   margin-bottom: 3rem;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+body.light .album-header {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .album-cover {
@@ -43,22 +52,24 @@
   border-radius: 15px;
   margin-right: 2rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--border-color);
+}
+
+body.light .album-cover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .album-info h1 {
   margin: 0 0 1rem 0;
   font-size: 2.5em;
   font-weight: 700;
-  background: linear-gradient(45deg, var(--highlight), #fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-color);
 }
 
 .album-info p {
   margin: 0.5rem 0;
-  color: #b3b3b3;
+  color: var(--text-color);
+  opacity: 0.7;
   font-size: 1.1rem;
   font-weight: 500;
 }
@@ -129,7 +140,8 @@
 .play-button {
   background: none;
   border: none;
-  color: #b3b3b3;
+  color: var(--text-color);
+  opacity: 0.7;
   cursor: pointer;
   font-size: 18px;
   padding: 5px;
@@ -144,5 +156,6 @@
 
 .play-button:hover {
   background-color: var(--highlight);
-  color: #000;
+  color: var(--button-text);
+  opacity: 1;
 }
