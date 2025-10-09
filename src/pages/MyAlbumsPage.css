@@ -59,16 +59,12 @@
 .album-card {
   background-color: var(--bg-color);
   border-radius: 24px;
-  padding: 15px;
+  padding: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  text-align: left;
-  width: 320px;
-  height: 280px;
-  gap: 15px;
+  flex-direction: column;
+  height: 469px;
 }
 
 .album-card:hover {
@@ -78,31 +74,25 @@
 }
 
 .album-image {
-  width: 240px !important;
-  height: 240px !important;
-  border-radius: 8px;
+  width: 100%;
+  border-radius: 4px;
   object-fit: cover;
-  flex-shrink: 0;
-}
-
-.album-content {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  height: 100%;
+  display: block;
+  height: 280px;
+  margin-bottom: 1rem;
 }
 
 .album-info {
-  flex: 1;
-  margin-right: 10px;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .album-buttons {
+  margin-top: auto;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  justify-content: flex-start;
+  gap: 0.5rem;
 }
 
 .album-info h3 {
@@ -124,14 +114,15 @@
 
 .view-btn,
 .remove-album-btn {
-  width: 120px;
-  padding: 8px 12px;
+  padding: 0.75rem 1rem;
   border: none;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  border-radius: 25px;
   cursor: pointer;
+  font-weight: bold;
   transition: all 0.2s ease;
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
 }
 
 .view-btn {
@@ -282,48 +273,68 @@ body.light .info-left p {
   }
 }
 
-@media (max-width: 680px) {
-  .albums-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-
+@media (max-width: 768px) {
   .album-card {
-    width: 280px;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
+    height: 350px;
+    padding: 0.75rem;
   }
 
   .album-image {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
+    height: 200px;
+    margin-bottom: 0.75rem;
   }
 
-  .album-content {
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
+  .album-info h3 {
+    font-size: 14px;
   }
 
-  .album-info {
-    margin-bottom: 0;
-    margin-right: 0;
+  .album-info p {
+    font-size: 12px;
   }
 
   .album-buttons {
-    flex-direction: row;
-    justify-content: center;
-    gap: 8px;
+    gap: 0.25rem;
   }
 
   .view-btn,
   .remove-album-btn {
-    flex: 1;
-    width: auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-card {
+    height: 280px;
+    padding: 0.5rem;
+  }
+
+  .album-image {
+    height: 160px;
+    margin-bottom: 0.5rem;
+  }
+
+  .album-info h3 {
+    font-size: 13px;
+  }
+
+  .album-info p {
+    font-size: 11px;
+  }
+
+  .album-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .view-btn,
+  .remove-album-btn {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.7rem;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
