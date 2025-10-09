@@ -143,4 +143,4 @@ https://spoty-app-aprz.vercel.app
 ¡Disfruta explorando y guardando tus álbumes favoritos de Spotify!
 
 Note un error en el Figma,en el frame 39,una de las cards de album,tiene la opcion de add album,pero se supone que ya esta en la seccion de my albums
-" "  
+" "
