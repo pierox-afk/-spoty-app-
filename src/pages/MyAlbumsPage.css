@@ -92,7 +92,8 @@
 .album-buttons {
   margin-top: auto;
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .album-info h3 {
@@ -326,6 +327,11 @@ body.light .info-left p {
   .album-buttons {
     flex-direction: column;
     gap: 0.25rem;
+  }
+
+  .view-btn,
+  .remove-album-btn {
+    width: 100%;
   }
 
   .view-btn,
