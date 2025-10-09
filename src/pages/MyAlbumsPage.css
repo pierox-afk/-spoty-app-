@@ -68,9 +68,9 @@
 }
 
 .album-card:hover {
-  background-color: #282828;
+  background-color: var(--card-hover-bg);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 16px var(--shadow-color);
 }
 
 .album-image {

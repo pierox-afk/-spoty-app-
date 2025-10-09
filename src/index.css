@@ -66,6 +66,7 @@ body.light {
   --input-bg: #f8f9fa;
   --button-bg: #ffffff;
   --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.1);
   --highlight: #d8f279;
 }
 
@@ -78,6 +79,7 @@ body.dark {
   --input-bg: #282828;
   --button-bg: #1a1a1a;
   --border-color: #333;
+  --shadow-color: rgba(0, 0, 0, 0.3);
   --highlight: #d8f279;
 }
 
