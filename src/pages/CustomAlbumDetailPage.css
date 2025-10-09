@@ -64,10 +64,16 @@
   padding: 16px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  background-color: var(--input-bg);
+  background-color: var(--bg-color);
   color: var(--text-color);
   font-size: 16px;
   box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--highlight);
+  box-shadow: 0 0 0 2px rgba(216, 247, 145, 0.2);
 }
 
 .search-input:focus {

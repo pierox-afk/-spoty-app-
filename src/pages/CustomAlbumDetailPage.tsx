@@ -248,7 +248,26 @@ export default function CustomAlbumDetailPage() {
                   onClick={() => playTrack(track)}
                   className="play-button"
                 >
-                  &#9654;
+                  {currentTrack?.id === track.id ? (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <rect x="6" y="4" width="4" height="16" />
+                      <rect x="14" y="4" width="4" height="16" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg>
+                  )}
                 </button>
               </div>
             </li>
