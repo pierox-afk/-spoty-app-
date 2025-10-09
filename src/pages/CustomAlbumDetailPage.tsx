@@ -131,23 +131,6 @@ export default function CustomAlbumDetailPage() {
     }
   };
 
-  const removeTrackFromAlbum = (trackId: string) => {
-    if (!album || !id) return;
-
-    const manager = CustomAlbumManager.getInstance();
-    manager.removeTrackFromAlbum(id, trackId);
-    // Force re-render by updating album state
-    const updatedAlbum = manager.getAlbumById(id);
-    if (updatedAlbum) {
-      // Recalculate track numbers
-      const updatedTracks = updatedAlbum.tracks.map((track, index) => ({
-        ...track,
-        track_number: index + 1,
-      }));
-      setAlbum({ ...updatedAlbum, tracks: updatedTracks });
-    }
-  };
-
   const formatDuration = (ms: number) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
@@ -238,12 +221,6 @@ export default function CustomAlbumDetailPage() {
                 <span className="track-duration">
                   {formatDuration(track.duration_ms)}
                 </span>
-                <button
-                  onClick={() => removeTrackFromAlbum(track.id)}
-                  className="remove-track-btn"
-                >
-                  ✕
-                </button>
                 <button
                   onClick={() => playTrack(track)}
                   className="play-button"
