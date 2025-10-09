@@ -120,8 +120,13 @@ export default function CustomAlbumDetailPage() {
     setSearchResults((prev) => prev.filter((t) => t.id !== track.id));
 
     // Update album cover based on most frequent artist
+    console.log("About to update album cover, token available:", !!token);
     if (token) {
+      console.log("Calling updateAlbumCoverFromMostFrequentArtist");
       await manager.updateAlbumCoverFromMostFrequentArtist(id, token);
+      console.log("Finished updating album cover");
+    } else {
+      console.log("No token available for updating album cover");
     }
 
     // Force re-render by updating album state
