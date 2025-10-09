@@ -33,12 +33,25 @@ export default function CustomAlbumDetailPage() {
     const manager = CustomAlbumManager.getInstance();
     const foundAlbum = manager.getAlbumById(id);
     if (foundAlbum) {
+      // Update album cover if needed
+      if (token && foundAlbum.tracks.length > 0) {
+        manager
+          .updateAlbumCoverFromMostFrequentArtist(id, token)
+          .then(() => {
+            // Refresh album data after cover update
+            const updatedAlbum = manager.getAlbumById(id);
+            if (updatedAlbum) {
+              setAlbum(updatedAlbum);
+            }
+          })
+          .catch(console.error);
+      }
       setAlbum(foundAlbum);
     } else {
       setError("Álbum no encontrado.");
     }
     setLoading(false);
-  }, [id]);
+  }, [id, token]);
 
   useEffect(() => {
     const searchTracks = async () => {
@@ -98,7 +111,6 @@ export default function CustomAlbumDetailPage() {
   };
 
   const addTrackToAlbum = async (track: Track) => {
-    console.log("addTrackToAlbum called with track:", track.name);
     if (!album || !id) return;
 
     const manager = CustomAlbumManager.getInstance();
@@ -121,13 +133,8 @@ export default function CustomAlbumDetailPage() {
     setSearchResults((prev) => prev.filter((t) => t.id !== track.id));
 
     // Update album cover based on most frequent artist
-    console.log("About to update album cover, token available:", !!token);
     if (token) {
-      console.log("Calling updateAlbumCoverFromMostFrequentArtist");
       await manager.updateAlbumCoverFromMostFrequentArtist(id, token);
-      console.log("Finished updating album cover");
-    } else {
-      console.log("No token available for updating album cover");
     }
 
     // Force re-render by updating album state
