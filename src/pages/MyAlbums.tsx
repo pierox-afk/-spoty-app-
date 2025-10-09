@@ -277,36 +277,6 @@ export default function MyAlbums() {
           </div>
         </section>
 
-        {customAlbums.length > 0 && (
-          <section className="albums-section">
-            <div className="artist-group">
-              <h2>Tus mixes</h2>
-              <div className="albums-grid">
-                {customAlbums.map((album) => (
-                  <div
-                    key={album.id}
-                    className="album-card"
-                    onClick={() => setSelectedAlbum(album)}
-                  >
-                    <img
-                      src={album.coverUrl || "/default-album.png"}
-                      alt={album.name}
-                      className="album-image"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.opacity = "0.3";
-                      }}
-                    />
-                    <div className="album-info">
-                      <h3>{album.name}</h3>
-                      <p>{album.tracks.length} canciones</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
         {selectedAlbum ? (
           <section className="selected-album-section" ref={sliderSectionRef}>
             <div className="selected-header">
