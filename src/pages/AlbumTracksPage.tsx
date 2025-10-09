@@ -135,53 +135,30 @@ export default function AlbumTracksPage() {
             <p>Publicado: {album.release_date}</p>
           </div>
         </div>
-        <div className="tracks-list">
-          <h2>Canciones</h2>
-          <ul>
-            {tracks.map((track, index) => (
-              <li
-                key={track.id}
-                className={`track-item ${
-                  currentTrack?.id === track.id ? "playing" : ""
-                }`}
-              >
-                <button
-                  className="play-track-btn"
-                  onClick={() => playTrack(track, index)}
-                  aria-label={`Reproducir ${track.name}`}
-                >
-                  {currentTrack?.id === track.id ? (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  )}
-                </button>
+        <ul className="track-list">
+          {tracks.map((track, index) => (
+            <li key={track.id} className="track-item">
+              <div className="track-info">
                 <span className="track-number">{track.track_number}.</span>
                 <span className="track-name">{track.name}</span>
-                <span className="track-artists">
+                <span className="track-artist">
                   {track.artists.map((artist) => artist.name).join(", ")}
                 </span>
+              </div>
+              <div className="track-controls">
                 <span className="track-duration">
                   {formatDuration(track.duration_ms)}
                 </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+                <button
+                  onClick={() => playTrack(track, index)}
+                  className="play-button"
+                >
+                  {currentTrack?.id === track.id ? "⏸️" : "▶️"}
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   };
