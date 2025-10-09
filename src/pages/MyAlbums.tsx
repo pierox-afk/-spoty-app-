@@ -218,13 +218,26 @@ export default function MyAlbums() {
       <Header />
       <main>
         <section className="albums-header">
-          <h1>
-            Mis <span className="highlight">álbumes</span> guardados
-          </h1>
-          <p>
-            Disfruta de tu música a un solo click y descubre qué discos has
-            guardado dentro de 'mis álbumes'.
-          </p>
+          <div className="header-content">
+            <div>
+              <h1>
+                Mis <span className="highlight">álbumes</span> guardados
+              </h1>
+              <p>
+                Disfruta de tu música a un solo click y descubre qué discos has
+                guardado dentro de 'mis álbumes'.
+              </p>
+            </div>
+            <button
+              className="create-mix-btn"
+              onClick={() => {
+                // TODO: Implement create mix functionality
+                alert("Función de crear mix próximamente disponible");
+              }}
+            >
+              🎵 Crear Mix
+            </button>
+          </div>
         </section>
 
         {selectedAlbum ? (
