@@ -12,6 +12,7 @@ import { AlbumGrid } from "../components/AlbumGrid";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
 import { Header } from "../components/Header";
+import "../components/SearchInput.css";
 
 export default function SearchPage() {
   const { token, logout } = useAuthContext();
