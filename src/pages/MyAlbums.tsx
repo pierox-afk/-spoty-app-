@@ -333,7 +333,7 @@ export default function MyAlbums() {
                               handleRemoveAlbum(album.id);
                             }}
                           >
-                            - Remove album
+                            - Remove
                           </button>
                         </div>
                       )}
@@ -385,7 +385,7 @@ export default function MyAlbums() {
                               handleRemoveCustomAlbum(album.id);
                             }}
                           >
-                            - Remove album
+                            - Remove
                           </button>
                         </div>
                       </div>
@@ -440,7 +440,7 @@ export default function MyAlbums() {
                                 handleRemoveAlbum(album.id);
                               }}
                             >
-                              - Remove album
+                              - Remove
                             </button>
                           </div>
                         </div>

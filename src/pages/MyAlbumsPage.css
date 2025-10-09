@@ -108,7 +108,8 @@
 
 .album-info p {
   font-size: 0.9rem;
-  color: #b3b3b3;
+  color: var(--text-color);
+  opacity: 0.7;
   margin: 0;
 }
 
@@ -135,12 +136,12 @@
 }
 
 .remove-album-btn {
-  background-color: #666;
+  background-color: #ff4757;
   color: white;
 }
 
 .remove-album-btn:hover {
-  background-color: #555;
+  background-color: #ff3742;
 }
 
 /* Selected album section styles */
