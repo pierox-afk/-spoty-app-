@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useState, useEffect } from "react";
 import "./Header.css";
 

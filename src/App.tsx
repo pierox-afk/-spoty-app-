@@ -6,7 +6,7 @@ import MyAlbums from "./pages/MyAlbums";
 import AlbumTracksPage from "./pages/AlbumTracksPage";
 import CustomAlbumDetailPage from "./pages/CustomAlbumDetailPage";
 import { getAccessToken } from "./hooks/useAuth";
-import { useAuthContext } from "./AuthContext";
+import { useAuthContext } from "./hooks/useAuthContext";
 import { ModalProvider } from "./ModalContext";
 
 const CallbackPage = () => {

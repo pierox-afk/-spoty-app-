@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuthContext } from "../AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { redirectToSpotifyAuth } from "../hooks/useAuth";
 import logo from "../img/Shape (1).png";
 import "./LoginPage.css";

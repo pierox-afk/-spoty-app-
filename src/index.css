@@ -10,7 +10,9 @@
 
   --bg-color: #121212;
   --text-color: rgba(255, 255, 255, 0.87);
+  --text-color-secondary: rgba(255, 255, 255, 0.6);
   --card-bg: #181818;
+  --card-bg-hover: #282828;
   --input-bg: #282828;
   --button-bg: #1a1a1a;
   --border-color: #333;
@@ -58,7 +60,9 @@ button:focus-visible {
 body.light {
   --bg-color: #f8f9fa;
   --text-color: #212529;
+  --text-color-secondary: rgba(33, 37, 41, 0.6);
   --card-bg: #ffffff;
+  --card-bg-hover: #f8f9fa;
   --input-bg: #f8f9fa;
   --button-bg: #ffffff;
   --border-color: #dee2e6;
@@ -68,7 +72,9 @@ body.light {
 body.dark {
   --bg-color: #121212;
   --text-color: rgba(255, 255, 255, 0.87);
+  --text-color-secondary: rgba(255, 255, 255, 0.6);
   --card-bg: #181818;
+  --card-bg-hover: #282828;
   --input-bg: #282828;
   --button-bg: #1a1a1a;
   --border-color: #333;

@@ -5,7 +5,7 @@ import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
 import { MusicPlayer } from "../components/MusicPlayer";
 import { CustomAlbumManager } from "../types/customAlbum";
-import { useAuthContext } from "../AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import { useDebounce } from "../hooks/useDebounce";
 import type { CustomAlbum, CustomTrack } from "../types/customAlbum";

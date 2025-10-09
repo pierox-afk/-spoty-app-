@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuthContext } from "../AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import type { Album, SearchResponse } from "../spotify";
 import { useDebounce } from "../hooks/useDebounce";
@@ -110,7 +110,7 @@ export default function SearchPage() {
     };
 
     searchAlbums();
-  }, [debouncedQuery, token, logout, currentPage, savedAlbumIds]);
+  }, [debouncedQuery, token, logout, currentPage, savedAlbumIds, showModal]);
 
   const renderContent = () => {
     if (isLoading) return <Spinner />;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import type { Album } from "../spotify";
 import { AlbumGrid } from "../components/AlbumGrid";
@@ -29,9 +29,10 @@ export default function MyAlbumsPage() {
         );
         const savedAlbums = data.items.map((item) => item.album);
         setAlbums(savedAlbums);
-      } catch (err: any) {
-        setError(err.message);
-        if (err.message.includes("expirado")) {
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
+        if (err instanceof Error && err.message.includes("expirado")) {
           logout();
         }
       } finally {

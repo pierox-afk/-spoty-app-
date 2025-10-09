@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
@@ -56,7 +56,7 @@ export default function MyAlbums() {
     };
 
     fetchSavedAlbums();
-  }, [token, logout]);
+  }, [token, logout, showModal]);
 
   useEffect(() => {
     const manager = CustomAlbumManager.getInstance();
@@ -363,29 +363,31 @@ export default function MyAlbums() {
                           (e.target as HTMLImageElement).style.opacity = "0.3";
                         }}
                       />
-                      <div className="album-info">
-                        <h3>{album.name}</h3>
-                        <p>{album.tracks.length} canciones</p>
-                      </div>
-                      <div className="album-buttons">
-                        <button
-                          className="view-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/custom-album/${album.id}`);
-                          }}
-                        >
-                          Ver canciones
-                        </button>
-                        <button
-                          className="remove-album-btn"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleRemoveCustomAlbum(album.id);
-                          }}
-                        >
-                          - Remove album
-                        </button>
+                      <div className="album-content">
+                        <div className="album-info">
+                          <h3>{album.name}</h3>
+                          <p>{album.tracks.length} canciones</p>
+                        </div>
+                        <div className="album-buttons">
+                          <button
+                            className="view-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/custom-album/${album.id}`);
+                            }}
+                          >
+                            Ver canciones
+                          </button>
+                          <button
+                            className="remove-album-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveCustomAlbum(album.id);
+                            }}
+                          >
+                            - Remove album
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -416,29 +418,31 @@ export default function MyAlbums() {
                               "0.3";
                           }}
                         />
-                        <div className="album-info">
-                          <h3>{album.name}</h3>
-                          <p>Publicado: {album.release_date}</p>
-                        </div>
-                        <div className="album-buttons">
-                          <button
-                            className="view-btn"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigate(`/album/${album.id}`);
-                            }}
-                          >
-                            Ver canciones
-                          </button>
-                          <button
-                            className="remove-album-btn"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleRemoveAlbum(album.id);
-                            }}
-                          >
-                            - Remove album
-                          </button>
+                        <div className="album-content">
+                          <div className="album-info">
+                            <h3>{album.name}</h3>
+                            <p>Publicado: {album.release_date}</p>
+                          </div>
+                          <div className="album-buttons">
+                            <button
+                              className="view-btn"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(`/album/${album.id}`);
+                              }}
+                            >
+                              Ver canciones
+                            </button>
+                            <button
+                              className="remove-album-btn"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemoveAlbum(album.id);
+                              }}
+                            >
+                              - Remove album
+                            </button>
+                          </div>
                         </div>
                       </div>
                     ))}

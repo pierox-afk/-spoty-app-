@@ -63,11 +63,12 @@
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  flex-direction: row;
+  align-items: flex-start;
+  text-align: left;
   width: 320px;
-  height: 469px;
+  height: 280px;
+  gap: 15px;
 }
 
 .album-card:hover {
@@ -77,16 +78,31 @@
 }
 
 .album-image {
-  width: 150px;
-  height: 150px;
+  width: 240px !important;
+  height: 240px !important;
   border-radius: 8px;
   object-fit: cover;
-  margin-bottom: 15px;
+  flex-shrink: 0;
+}
+
+.album-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100%;
 }
 
 .album-info {
-  flex-grow: 1;
-  margin-bottom: 15px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.album-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: flex-start;
 }
 
 .album-info h3 {
@@ -106,15 +122,9 @@
   margin: 0;
 }
 
-.album-buttons {
-  display: flex;
-  gap: 8px;
-  width: 100%;
-}
-
 .view-btn,
 .remove-album-btn {
-  flex: 1;
+  width: 120px;
   padding: 8px 12px;
   border: none;
   border-radius: 20px;
@@ -134,12 +144,12 @@
 }
 
 .remove-album-btn {
-  background-color: #ff4757;
+  background-color: #666;
   color: white;
 }
 
 .remove-album-btn:hover {
-  background-color: #ff3742;
+  background-color: #555;
 }
 
 /* Selected album section styles */
@@ -202,29 +212,41 @@
 }
 
 .selected-slider-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  padding: 15px;
-  border-radius: 0 0 8px 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8)) !important;
+  padding: 15px !important;
+  border-radius: 0 0 8px 8px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-end !important;
+}
+
+body.light .selected-slider-info {
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.9)) !important;
 }
 
 .info-left h4 {
-  margin: 0 0 5px 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
+  margin: 0 0 5px 0 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+body.light .info-left h4 {
+  color: var(--text-color) !important;
 }
 
 .info-left p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #b3b3b3;
+  margin: 0 !important;
+  font-size: 0.9rem !important;
+  color: #b3b3b3 !important;
+}
+
+body.light .info-left p {
+  color: rgba(33, 37, 41, 0.7) !important;
 }
 
 .selected-buttons {
@@ -268,12 +290,40 @@
 
   .album-card {
     width: 280px;
-    height: 420px;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
   }
 
   .album-image {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .album-content {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .album-info {
+    margin-bottom: 0;
+    margin-right: 0;
+  }
+
+  .album-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .view-btn,
+  .remove-album-btn {
+    flex: 1;
+    width: auto;
   }
 }
 
@@ -355,16 +405,20 @@
 
 /* Modal styles */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 1000 !important;
+}
+
+body.light .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .modal-content {

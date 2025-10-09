@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuthContext } from "../AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { spotifyFetch } from "../spotifyClient";
 import { Header } from "../components/Header";
 import { Spinner } from "../components/Spinner";
