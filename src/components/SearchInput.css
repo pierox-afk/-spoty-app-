@@ -3,14 +3,16 @@
   padding: 0.8rem 1.2rem;
   font-size: 1.1rem;
   border-radius: 50px;
-  background: #ffffff;
-
-  color: white;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
   margin-bottom: 2rem;
   box-sizing: border-box;
+  transition: border-color 0.2s ease;
 }
 
 .search-input:focus {
   outline: none;
   border-color: var(--highlight);
+  box-shadow: 0 0 0 2px rgba(216, 247, 121, 0.2);
 }
