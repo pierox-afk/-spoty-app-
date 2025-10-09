@@ -88,7 +88,12 @@ export default function CustomAlbumDetailPage() {
     // Force re-render by updating album state
     const updatedAlbum = manager.getAlbumById(id);
     if (updatedAlbum) {
-      setAlbum({ ...updatedAlbum });
+      // Recalculate track numbers
+      const updatedTracks = updatedAlbum.tracks.map((track, index) => ({
+        ...track,
+        track_number: index + 1,
+      }));
+      setAlbum({ ...updatedAlbum, tracks: updatedTracks });
     }
   };
 
@@ -100,7 +105,12 @@ export default function CustomAlbumDetailPage() {
     // Force re-render by updating album state
     const updatedAlbum = manager.getAlbumById(id);
     if (updatedAlbum) {
-      setAlbum({ ...updatedAlbum });
+      // Recalculate track numbers
+      const updatedTracks = updatedAlbum.tracks.map((track, index) => ({
+        ...track,
+        track_number: index + 1,
+      }));
+      setAlbum({ ...updatedAlbum, tracks: updatedTracks });
     }
   };
 
