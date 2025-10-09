@@ -85,9 +85,10 @@ export default function CustomAlbumDetailPage() {
     };
 
     manager.addTrackToAlbum(id, customTrack);
+    // Force re-render by updating album state
     const updatedAlbum = manager.getAlbumById(id);
     if (updatedAlbum) {
-      setAlbum(updatedAlbum);
+      setAlbum({ ...updatedAlbum });
     }
   };
 
@@ -96,9 +97,10 @@ export default function CustomAlbumDetailPage() {
 
     const manager = CustomAlbumManager.getInstance();
     manager.removeTrackFromAlbum(id, trackId);
+    // Force re-render by updating album state
     const updatedAlbum = manager.getAlbumById(id);
     if (updatedAlbum) {
-      setAlbum(updatedAlbum);
+      setAlbum({ ...updatedAlbum });
     }
   };
 
