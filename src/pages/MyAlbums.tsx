@@ -20,6 +20,12 @@ export default function MyAlbums() {
   const [error, setError] = useState<string | null>(null);
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
   const [draggedAlbum, setDraggedAlbum] = useState<Album | null>(null);
+  const [showCreateMixModal, setShowCreateMixModal] = useState(false);
+  const [mixTitle, setMixTitle] = useState("");
+  const [createdMix, setCreatedMix] = useState<{
+    title: string;
+    tracks: any[];
+  } | null>(null);
 
   useEffect(() => {
     const fetchSavedAlbums = async () => {
@@ -213,6 +219,63 @@ export default function MyAlbums() {
     sortedGroupedAlbums[artist] = groupedAlbums[artist];
   });
 
+  const createMix = async (title: string) => {
+    if (!token || albums.length === 0) return;
+
+    try {
+      // Get tracks from random albums
+      const selectedAlbums = albums.slice(0, Math.min(5, albums.length)); // Use up to 5 albums
+      const allTracks: any[] = [];
+
+      for (const album of selectedAlbums) {
+        try {
+          const tracksData = await spotifyFetch<{ items: any[] }>(
+            `/albums/${album.id}/tracks?limit=5`,
+            token,
+            {},
+            () =>
+              showModal(
+                "Acceso Denegado",
+                "Tu email no está autorizado para usar esta aplicación."
+              )
+          );
+          allTracks.push(...tracksData.items.slice(0, 3)); // Take up to 3 tracks per album
+        } catch (error) {
+          console.error(
+            `Error fetching tracks for album ${album.name}:`,
+            error
+          );
+        }
+      }
+
+      // Shuffle and take up to 20 tracks
+      const shuffledTracks = allTracks
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 20);
+
+      const mix = {
+        title,
+        tracks: shuffledTracks.map((track, index) => ({
+          ...track,
+          track_number: index + 1,
+        })),
+      };
+
+      setCreatedMix(mix);
+      setShowCreateMixModal(false);
+      setMixTitle("");
+    } catch (error) {
+      console.error("Error creating mix:", error);
+      showModal("Error", "No se pudo crear el mix. Inténtalo de nuevo.");
+    }
+  };
+
+  const handleCreateMix = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!mixTitle.trim()) return;
+    createMix(mixTitle.trim());
+  };
+
   return (
     <div className="page-container">
       <Header />
@@ -230,15 +293,45 @@ export default function MyAlbums() {
             </div>
             <button
               className="create-mix-btn"
-              onClick={() => {
-                // TODO: Implement create mix functionality
-                alert("Función de crear mix próximamente disponible");
-              }}
+              onClick={() => setShowCreateMixModal(true)}
             >
               🎵 Crear Mix
             </button>
           </div>
         </section>
+
+        {createdMix && (
+          <section className="created-mix-section">
+            <div className="mix-header">
+              <h2>🎵 {createdMix.title}</h2>
+              <button
+                className="close-mix-btn"
+                onClick={() => setCreatedMix(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="mix-tracks">
+              {createdMix.tracks.map((track) => (
+                <div key={track.id} className="mix-track-item">
+                  <span className="track-number">{track.track_number}.</span>
+                  <span className="track-name">{track.name}</span>
+                  <span className="track-artist">
+                    {track.artists
+                      ?.map((artist: any) => artist.name)
+                      .join(", ")}
+                  </span>
+                  <span className="track-duration">
+                    {Math.floor(track.duration_ms / 60000)}:
+                    {String(
+                      Math.floor((track.duration_ms % 60000) / 1000)
+                    ).padStart(2, "0")}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {selectedAlbum ? (
           <section className="selected-album-section" ref={sliderSectionRef}>
@@ -363,6 +456,42 @@ export default function MyAlbums() {
               )
             )}
           </section>
+        )}
+
+        {showCreateMixModal && (
+          <div
+            className="modal-overlay"
+            onClick={() => setShowCreateMixModal(false)}
+          >
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h2>Crear Nuevo Mix</h2>
+              <form onSubmit={handleCreateMix}>
+                <div className="form-group">
+                  <label htmlFor="mix-title">Título del Mix *</label>
+                  <input
+                    id="mix-title"
+                    type="text"
+                    value={mixTitle}
+                    onChange={(e) => setMixTitle(e.target.value)}
+                    placeholder="Mi Mix Favorito"
+                    required
+                  />
+                </div>
+                <div className="modal-actions">
+                  <button
+                    type="button"
+                    className="cancel-btn"
+                    onClick={() => setShowCreateMixModal(false)}
+                  >
+                    Cancelar
+                  </button>
+                  <button type="submit" className="create-btn">
+                    Crear Mix
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         )}
       </main>
     </div>
