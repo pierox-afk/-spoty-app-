@@ -17,6 +17,10 @@ export interface Track {
   external_urls?: {
     spotify: string;
   };
+  album?: {
+    images: { url: string }[];
+    name: string;
+  };
 }
 
 export interface CustomTrack extends Track {

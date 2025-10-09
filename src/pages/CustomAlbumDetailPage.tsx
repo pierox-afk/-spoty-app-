@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Spinner } from "../components/Spinner";
 import { Message } from "../components/Message";
+import { MusicPlayer } from "../components/MusicPlayer";
 import { CustomAlbumManager } from "../types/customAlbum";
 import { useAuthContext } from "../AuthContext";
 import { spotifyFetch } from "../spotifyClient";
@@ -71,6 +72,31 @@ export default function CustomAlbumDetailPage() {
     setCurrentTrack(track);
   };
 
+  const closePlayer = () => {
+    setCurrentTrack(null);
+  };
+
+  const playNextTrack = () => {
+    if (!album || !currentTrack) return;
+
+    const currentIndex = album.tracks.findIndex(
+      (t) => t.id === currentTrack.id
+    );
+    const nextIndex = (currentIndex + 1) % album.tracks.length;
+    setCurrentTrack(album.tracks[nextIndex]);
+  };
+
+  const playPreviousTrack = () => {
+    if (!album || !currentTrack) return;
+
+    const currentIndex = album.tracks.findIndex(
+      (t) => t.id === currentTrack.id
+    );
+    const prevIndex =
+      currentIndex === 0 ? album.tracks.length - 1 : currentIndex - 1;
+    setCurrentTrack(album.tracks[prevIndex]);
+  };
+
   const addTrackToAlbum = (track: Track) => {
     if (!album || !id) return;
 
@@ -82,6 +108,10 @@ export default function CustomAlbumDetailPage() {
       duration_ms: track.duration_ms,
       track_number: album.tracks.length + 1,
       preview_url: undefined, // Spotify tracks don't have preview URLs in search results
+      album: {
+        images: album.coverUrl ? [{ url: album.coverUrl }] : [],
+        name: album.name,
+      },
     };
 
     manager.addTrackToAlbum(id, customTrack);
@@ -214,30 +244,24 @@ export default function CustomAlbumDetailPage() {
                 >
                   ✕
                 </button>
-                {track.preview_url && (
-                  <button
-                    onClick={() => playTrack(track)}
-                    className="play-button"
-                  >
-                    &#9654;
-                  </button>
-                )}
+                <button
+                  onClick={() => playTrack(track)}
+                  className="play-button"
+                >
+                  &#9654;
+                </button>
               </div>
             </li>
           ))}
         </ul>
 
         {currentTrack && (
-          <div className="audio-player-container">
-            <audio
-              src={currentTrack.preview_url!}
-              autoPlay
-              controls
-              onEnded={() => setCurrentTrack(null)}
-            >
-              Tu navegador no soporta el elemento de audio.
-            </audio>
-          </div>
+          <MusicPlayer
+            currentTrack={currentTrack}
+            onClose={closePlayer}
+            onNext={playNextTrack}
+            onPrevious={playPreviousTrack}
+          />
         )}
       </main>
     </div>
