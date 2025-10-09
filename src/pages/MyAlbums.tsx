@@ -21,9 +21,7 @@ export default function MyAlbums() {
   const [customAlbums, setCustomAlbums] = useState<CustomAlbum[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedAlbum, setSelectedAlbum] = useState<
-    Album | CustomAlbum | null
-  >(null);
+  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
   const [draggedAlbum, setDraggedAlbum] = useState<Album | null>(null);
   const [showCreateMixModal, setShowCreateMixModal] = useState(false);
   const [mixTitle, setMixTitle] = useState("");
@@ -324,73 +322,55 @@ export default function MyAlbums() {
               ref={sliderRef}
               onMouseDown={onMouseDown}
             >
-              {("tracks" in selectedAlbum ? customAlbums : albums).map(
-                (album) => (
-                  <div
-                    key={album.id}
-                    id={album.id}
-                    className={`selected-slider-item ${
-                      album.id === selectedAlbum.id ? "selected" : ""
-                    }`}
-                    onClick={() => setSelectedAlbum(album)}
-                  >
-                    <img
-                      src={
-                        "tracks" in album
-                          ? album.coverUrl || "/default-album.png"
-                          : album.images[0]?.url || ""
-                      }
-                      alt={album.name}
-                      className="selected-slider-image"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.opacity = "0.3";
-                      }}
-                    />
-                    {album.id === selectedAlbum.id && (
-                      <div className="selected-slider-info">
-                        <div className="info-left">
-                          <h4>{album.name}</h4>
-                          <p>
-                            {"tracks" in album
-                              ? `${album.tracks.length} canciones`
-                              : `Publicado: ${album.release_date}`}
-                          </p>
-                        </div>
-                        {album.id === selectedAlbum.id && (
-                          <div className="selected-buttons">
-                            <button
-                              className="view-btn"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if ("tracks" in album) {
-                                  navigate(`/custom-album/${album.id}`);
-                                } else {
-                                  navigate(`/album/${album.id}`);
-                                }
-                              }}
-                            >
-                              Ver canciones
-                            </button>
-                            <button
-                              className="remove-btn"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if ("tracks" in album) {
-                                  handleRemoveCustomAlbum(album.id);
-                                } else {
-                                  handleRemoveAlbum(album.id);
-                                }
-                              }}
-                            >
-                              - Remove album
-                            </button>
-                          </div>
-                        )}
+              {albums.map((album) => (
+                <div
+                  key={album.id}
+                  id={album.id}
+                  className={`selected-slider-item ${
+                    album.id === selectedAlbum.id ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedAlbum(album)}
+                >
+                  <img
+                    src={album.images[0]?.url || ""}
+                    alt={album.name}
+                    className="selected-slider-image"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.opacity = "0.3";
+                    }}
+                  />
+                  {album.id === selectedAlbum.id && (
+                    <div className="selected-slider-info">
+                      <div className="info-left">
+                        <h4>{album.name}</h4>
+                        <p>Publicado: {album.release_date}</p>
                       </div>
-                    )}
-                  </div>
-                )
-              )}
+                      {album.id === selectedAlbum.id && (
+                        <div className="selected-buttons">
+                          <button
+                            className="view-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/album/${album.id}`);
+                            }}
+                          >
+                            Ver canciones
+                          </button>
+                          <button
+                            className="remove-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveAlbum(album.id);
+                            }}
+                          >
+                            - Remove album
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
         ) : (
@@ -403,7 +383,7 @@ export default function MyAlbums() {
                     <div
                       key={album.id}
                       className="album-card"
-                      onClick={() => setSelectedAlbum(album)}
+                      onClick={() => navigate(`/custom-album/${album.id}`)}
                     >
                       <img
                         src={album.coverUrl || "/default-album.png"}
