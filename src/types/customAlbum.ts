@@ -116,4 +116,60 @@ export class CustomAlbumManager {
       this.saveToStorage();
     }
   }
+
+  async updateAlbumCoverFromMostFrequentArtist(albumId: string, token: string) {
+    const album = this.getAlbumById(albumId);
+    if (!album || album.tracks.length === 0) return;
+
+    // Count tracks per artist
+    const artistCount: {
+      [artistId: string]: { count: number; artist: Artist };
+    } = {};
+
+    album.tracks.forEach((track) => {
+      track.artists.forEach((artist) => {
+        if (!artistCount[artist.id]) {
+          artistCount[artist.id] = { count: 0, artist };
+        }
+        artistCount[artist.id].count++;
+      });
+    });
+
+    // Find artist with most tracks
+    let mostFrequentArtist: Artist | null = null;
+    let maxCount = 0;
+
+    for (const artistId in artistCount) {
+      const { count, artist } = artistCount[artistId];
+      if (count > maxCount) {
+        maxCount = count;
+        mostFrequentArtist = artist;
+      }
+    }
+
+    if (mostFrequentArtist && mostFrequentArtist.id) {
+      try {
+        // Fetch artist image from Spotify
+        const response = await fetch(
+          `https://api.spotify.com/v1/artists/${mostFrequentArtist.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const artistData = await response.json();
+          const imageUrl = artistData.images?.[0]?.url;
+
+          if (imageUrl) {
+            this.updateAlbum(albumId, { coverUrl: imageUrl });
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching artist image:", error);
+      }
+    }
+  }
 }

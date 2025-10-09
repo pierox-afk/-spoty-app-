@@ -97,7 +97,7 @@ export default function CustomAlbumDetailPage() {
     setCurrentTrack(album.tracks[prevIndex]);
   };
 
-  const addTrackToAlbum = (track: Track) => {
+  const addTrackToAlbum = async (track: Track) => {
     if (!album || !id) return;
 
     const manager = CustomAlbumManager.getInstance();
@@ -118,6 +118,11 @@ export default function CustomAlbumDetailPage() {
 
     // Remove track from search results
     setSearchResults((prev) => prev.filter((t) => t.id !== track.id));
+
+    // Update album cover based on most frequent artist
+    if (token) {
+      await manager.updateAlbumCoverFromMostFrequentArtist(id, token);
+    }
 
     // Force re-render by updating album state
     const updatedAlbum = manager.getAlbumById(id);
