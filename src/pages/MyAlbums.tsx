@@ -7,6 +7,8 @@ import { Message } from "../components/Message";
 import { Header } from "../components/Header";
 import { useModal } from "../hooks/useModal";
 import type { Album } from "../spotify";
+import { CustomAlbumManager } from "../types/customAlbum";
+import type { CustomAlbum } from "../types/customAlbum";
 
 import "../components/Page.css";
 import "./MyAlbumsPage.css";
@@ -16,16 +18,13 @@ export default function MyAlbums() {
   const { showModal } = useModal();
   const navigate = useNavigate();
   const [albums, setAlbums] = useState<Album[]>([]);
+  const [customAlbums, setCustomAlbums] = useState<CustomAlbum[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
   const [draggedAlbum, setDraggedAlbum] = useState<Album | null>(null);
   const [showCreateMixModal, setShowCreateMixModal] = useState(false);
   const [mixTitle, setMixTitle] = useState("");
-  const [createdMix, setCreatedMix] = useState<{
-    title: string;
-    tracks: any[];
-  } | null>(null);
 
   useEffect(() => {
     const fetchSavedAlbums = async () => {
@@ -58,6 +57,11 @@ export default function MyAlbums() {
 
     fetchSavedAlbums();
   }, [token, logout]);
+
+  useEffect(() => {
+    const manager = CustomAlbumManager.getInstance();
+    setCustomAlbums(manager.getAlbums());
+  }, []);
 
   const groupByArtist = (albums: Album[]) => {
     const grouped: { [key: string]: Album[] } = {};
@@ -220,53 +224,16 @@ export default function MyAlbums() {
   });
 
   const createMix = async (title: string) => {
-    if (!token || albums.length === 0) return;
-
     try {
-      // Get tracks from random albums
-      const selectedAlbums = albums.slice(0, Math.min(5, albums.length)); // Use up to 5 albums
-      const allTracks: any[] = [];
-
-      for (const album of selectedAlbums) {
-        try {
-          const tracksData = await spotifyFetch<{ items: any[] }>(
-            `/albums/${album.id}/tracks?limit=5`,
-            token,
-            {},
-            () =>
-              showModal(
-                "Acceso Denegado",
-                "Tu email no está autorizado para usar esta aplicación."
-              )
-          );
-          allTracks.push(...tracksData.items.slice(0, 3)); // Take up to 3 tracks per album
-        } catch (error) {
-          console.error(
-            `Error fetching tracks for album ${album.name}:`,
-            error
-          );
-        }
-      }
-
-      // Shuffle and take up to 20 tracks
-      const shuffledTracks = allTracks
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 20);
-
-      const mix = {
-        title,
-        tracks: shuffledTracks.map((track, index) => ({
-          ...track,
-          track_number: index + 1,
-        })),
-      };
-
-      setCreatedMix(mix);
+      const manager = CustomAlbumManager.getInstance();
+      const album = manager.createAlbum(title);
+      setCustomAlbums(manager.getAlbums());
       setShowCreateMixModal(false);
       setMixTitle("");
+      navigate(`/custom-album/${album.id}`);
     } catch (error) {
-      console.error("Error creating mix:", error);
-      showModal("Error", "No se pudo crear el mix. Inténtalo de nuevo.");
+      console.error("Error creating album:", error);
+      showModal("Error", "No se pudo crear el álbum. Inténtalo de nuevo.");
     }
   };
 
@@ -300,35 +267,32 @@ export default function MyAlbums() {
           </div>
         </section>
 
-        {createdMix && (
-          <section className="created-mix-section">
-            <div className="mix-header">
-              <h2>🎵 {createdMix.title}</h2>
-              <button
-                className="close-mix-btn"
-                onClick={() => setCreatedMix(null)}
-              >
-                ✕
-              </button>
-            </div>
-            <div className="mix-tracks">
-              {createdMix.tracks.map((track) => (
-                <div key={track.id} className="mix-track-item">
-                  <span className="track-number">{track.track_number}.</span>
-                  <span className="track-name">{track.name}</span>
-                  <span className="track-artist">
-                    {track.artists
-                      ?.map((artist: any) => artist.name)
-                      .join(", ")}
-                  </span>
-                  <span className="track-duration">
-                    {Math.floor(track.duration_ms / 60000)}:
-                    {String(
-                      Math.floor((track.duration_ms % 60000) / 1000)
-                    ).padStart(2, "0")}
-                  </span>
-                </div>
-              ))}
+        {customAlbums.length > 0 && (
+          <section className="albums-section">
+            <div className="artist-group">
+              <h2>Tus mixes</h2>
+              <div className="albums-grid">
+                {customAlbums.map((album) => (
+                  <div
+                    key={album.id}
+                    className="album-card"
+                    onClick={() => navigate(`/custom-album/${album.id}`)}
+                  >
+                    <img
+                      src={album.coverUrl || "/default-album.png"}
+                      alt={album.name}
+                      className="album-image"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.opacity = "0.3";
+                      }}
+                    />
+                    <div className="album-info">
+                      <h3>{album.name}</h3>
+                      <p>{album.tracks.length} canciones</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         )}
@@ -475,6 +439,7 @@ export default function MyAlbums() {
                     onChange={(e) => setMixTitle(e.target.value)}
                     placeholder="Mi Mix Favorito"
                     required
+                    autoComplete="off"
                   />
                 </div>
                 <div className="modal-actions">

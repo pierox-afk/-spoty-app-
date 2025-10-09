@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
 import MyAlbums from "./pages/MyAlbums";
 import AlbumTracksPage from "./pages/AlbumTracksPage";
+import CustomAlbumDetailPage from "./pages/CustomAlbumDetailPage";
 import { getAccessToken } from "./hooks/useAuth";
 import { useAuthContext } from "./AuthContext";
 import { ModalProvider } from "./ModalContext";
@@ -79,6 +80,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AlbumTracksPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/custom-album/:id"
+          element={
+            <ProtectedRoute>
+              <CustomAlbumDetailPage />
             </ProtectedRoute>
           }
         />
