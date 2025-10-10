@@ -8,6 +8,8 @@ Una aplicación web para buscar y gestionar álbumes de Spotify. Permite a los u
 - 🔍 Búsqueda de álbumes en tiempo real
 - 💾 Guardado de álbumes favoritos
 - 🎵 Creación e importación de mixes personalizados desde playlists de Spotify
+- 🎵 Visualización de álbumes de canciones favoritas
+- 🎵 Visualización de playlists personales
 - 🎵 Visualización organizada por artista
 - 🖱️ Interfaz de arrastrar y soltar para reordenar álbumes
 - 📱 Diseño responsivo

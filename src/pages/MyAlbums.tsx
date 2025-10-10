@@ -28,6 +28,8 @@ export default function MyAlbums() {
   const [isImportMode, setIsImportMode] = useState(false);
   const [playlistUrl, setPlaylistUrl] = useState("");
   const [nextUrl, setNextUrl] = useState<string | null>("/me/albums?limit=20");
+  const [likedAlbums, setLikedAlbums] = useState<Album[]>([]);
+  const [playlists, setPlaylists] = useState<any[]>([]);
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const fetchSavedAlbums = useCallback(async () => {
@@ -68,6 +70,46 @@ export default function MyAlbums() {
     const manager = CustomAlbumManager.getInstance();
     setCustomAlbums(manager.getAlbums());
   }, []);
+
+  useEffect(() => {
+    const fetchLikedAlbums = async () => {
+      if (!token) return;
+      try {
+        const data = await spotifyFetch<{
+          items: { track: { album: Album } }[];
+        }>("/me/tracks?limit=50", token);
+        const albums = data.items.map((item) => item.track.album);
+        const uniqueAlbums = albums.filter(
+          (album, index, self) =>
+            self.findIndex((a) => a.id === album.id) === index
+        );
+        setLikedAlbums(uniqueAlbums);
+      } catch (error) {
+        console.error("Error fetching liked albums:", error);
+      }
+    };
+    fetchLikedAlbums();
+  }, [token]);
+
+  useEffect(() => {
+    const fetchPlaylists = async () => {
+      if (!token) return;
+      try {
+        const data = await spotifyFetch<{
+          items: {
+            id: string;
+            name: string;
+            images: { url: string }[];
+            tracks: { total: number };
+          }[];
+        }>("/me/playlists?limit=50", token);
+        setPlaylists(data.items);
+      } catch (error) {
+        console.error("Error fetching playlists:", error);
+      }
+    };
+    fetchPlaylists();
+  }, [token]);
 
   const groupByArtist = (albums: Album[]) => {
     const grouped: { [key: string]: Album[] } = {};
@@ -461,6 +503,120 @@ export default function MyAlbums() {
                 </div>
               </div>
             )}
+
+            {likedAlbums.length > 0 && (
+              <div className="artist-group">
+                <h2>Álbumes de tus canciones favoritas</h2>
+                <div className="albums-grid">
+                  {likedAlbums.map((album) => (
+                    <div
+                      key={album.id}
+                      className="album-card"
+                      onClick={() => setSelectedAlbum(album)}
+                    >
+                      <img
+                        src={album.images[1]?.url || album.images[0]?.url || ""}
+                        alt={album.name}
+                        className="album-image"
+                        loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.opacity = "0.3";
+                        }}
+                      />
+                      <div className="album-content">
+                        <div className="album-info">
+                          <h3>{album.name}</h3>
+                          <p>Publicado: {album.release_date}</p>
+                        </div>
+                        <div className="album-buttons">
+                          <button
+                            className="view-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/album/${album.id}`);
+                            }}
+                          >
+                            Ver canciones
+                          </button>
+                          <button
+                            className="remove-album-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveAlbum(album.id);
+                            }}
+                          >
+                            - Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {playlists.length > 0 && (
+              <div className="artist-group">
+                <h2>Mis playlists</h2>
+                <div className="albums-grid">
+                  {playlists.map((playlist) => (
+                    <div
+                      key={playlist.id}
+                      className="album-card"
+                      onClick={() => {
+                        if (!token) return;
+                        const manager = CustomAlbumManager.getInstance();
+                        manager
+                          .createAlbumFromPlaylist(playlist.id, token)
+                          .then((album) => {
+                            if (album) {
+                              setCustomAlbums(manager.getAlbums());
+                              navigate(`/custom-album/${album.id}`);
+                            }
+                          });
+                      }}
+                    >
+                      <img
+                        src={playlist.images[0]?.url || "/default-album.png"}
+                        alt={playlist.name}
+                        className="album-image"
+                        loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.opacity = "0.3";
+                        }}
+                      />
+                      <div className="album-content">
+                        <div className="album-info">
+                          <h3>{playlist.name}</h3>
+                          <p>{playlist.tracks.total} canciones</p>
+                        </div>
+                        <div className="album-buttons">
+                          <button
+                            className="view-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (!token) return;
+                              const manager = CustomAlbumManager.getInstance();
+                              manager
+                                .createAlbumFromPlaylist(playlist.id, token)
+                                .then((album) => {
+                                  if (album) {
+                                    setCustomAlbums(manager.getAlbums());
+                                    navigate(`/custom-album/${album.id}`);
+                                  }
+                                });
+                            }}
+                          >
+                            Importar como Mix
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {Object.entries(sortedGroupedAlbums).map(
               ([artist, artistAlbums]) => (
                 <div key={artist} className="artist-group">
