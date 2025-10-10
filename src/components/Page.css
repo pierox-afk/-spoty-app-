@@ -76,7 +76,7 @@
 .search-form {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   width: 100%;
   max-width: 664px;
   height: 62px;
