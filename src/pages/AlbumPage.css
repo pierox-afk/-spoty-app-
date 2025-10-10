@@ -3,9 +3,9 @@
   width: 663px;
   height: 401px;
   top: 543px;
-  left: 412px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
   border-radius: 24px;
-  transform: rotate(0deg);
   opacity: 1;
   display: flex;
   align-items: center;
