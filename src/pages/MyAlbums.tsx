@@ -25,25 +25,27 @@ export default function MyAlbums() {
   const [draggedAlbum, setDraggedAlbum] = useState<Album | null>(null);
   const [showCreateMixModal, setShowCreateMixModal] = useState(false);
   const [mixTitle, setMixTitle] = useState("");
+  const [nextUrl, setNextUrl] = useState<string | null>("/me/albums?limit=20");
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchSavedAlbums = async () => {
-      if (!token) return;
+      if (!token || !nextUrl) return;
 
       try {
-        const endpoint = "/me/albums?limit=50";
-        const data = await spotifyFetch<{ items: { album: Album }[] }>(
-          endpoint,
-          token,
-          {},
-          () =>
-            showModal(
-              "Acceso Denegado",
-              "Tu email no está autorizado para usar esta aplicación."
-            )
+        setIsLoading(true);
+        const data = await spotifyFetch<{
+          items: { album: Album }[];
+          next: string | null;
+        }>(nextUrl, token, {}, () =>
+          showModal(
+            "Acceso Denegado",
+            "Tu email no está autorizado para usar esta aplicación."
+          )
         );
         const savedAlbums = data.items.map((item) => item.album);
-        setAlbums(savedAlbums);
+        setAlbums((prev) => [...prev, ...savedAlbums]);
+        setNextUrl(data.next);
       } catch (err: unknown) {
         const error = err as Error;
         setError(error.message);
@@ -55,8 +57,10 @@ export default function MyAlbums() {
       }
     };
 
-    fetchSavedAlbums();
-  }, [token, logout, showModal]);
+    if (nextUrl) {
+      fetchSavedAlbums();
+    }
+  }, [token, logout, showModal, nextUrl]);
 
   useEffect(() => {
     const manager = CustomAlbumManager.getInstance();
@@ -219,7 +223,25 @@ export default function MyAlbums() {
     }
   }, [selectedAlbum?.id]);
 
-  if (isLoading) return <Spinner />;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (first.isIntersecting && nextUrl && !isLoading) {
+          setNextUrl(nextUrl);
+        }
+      },
+      { threshold: 1 }
+    );
+
+    const currentLoader = loaderRef.current;
+    if (currentLoader) {
+      observer.observe(currentLoader);
+    }
+
+    return () => currentLoader && observer.unobserve(currentLoader);
+  }, [nextUrl, isLoading]);
+
   if (error) return <Message type="error" text={`Error: ${error}`} />;
 
   const groupedAlbums = groupByArtist(albums);
@@ -305,6 +327,7 @@ export default function MyAlbums() {
                     src={album.images[0]?.url || ""}
                     alt={album.name}
                     className="selected-slider-image"
+                    loading="lazy"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.opacity = "0.3";
                     }}
@@ -356,9 +379,10 @@ export default function MyAlbums() {
                       onClick={() => navigate(`/custom-album/${album.id}`)}
                     >
                       <img
-                        src={album.coverUrl || "/default-album.png"}
+                        src={album.coverUrl || "/default-album.png"} // Assuming custom albums have one size
                         alt={album.name}
                         className="album-image"
+                        loading="lazy"
                         onError={(e) => {
                           (e.target as HTMLImageElement).style.opacity = "0.3";
                         }}
@@ -410,9 +434,12 @@ export default function MyAlbums() {
                         onClick={() => setSelectedAlbum(album)}
                       >
                         <img
-                          src={album.images[0]?.url || ""}
+                          src={
+                            album.images[1]?.url || album.images[0]?.url || ""
+                          }
                           alt={album.name}
                           className="album-image"
+                          loading="lazy"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.opacity =
                               "0.3";
@@ -452,6 +479,8 @@ export default function MyAlbums() {
             )}
           </section>
         )}
+        {isLoading && <Spinner />}
+        {!isLoading && nextUrl && <div ref={loaderRef} />}
 
         {showCreateMixModal && (
           <div

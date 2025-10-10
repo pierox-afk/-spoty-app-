@@ -50,10 +50,9 @@
 
 .albums-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 320px);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
-  justify-content: flex-start;
 }
 
 .album-card {
@@ -78,7 +77,7 @@
   border-radius: 4px;
   object-fit: cover;
   display: block;
-  height: 280px;
+  aspect-ratio: 1 / 1;
   margin-bottom: 1rem;
 }
 
@@ -173,7 +172,8 @@
   display: flex;
   gap: 15px;
   overflow-x: auto;
-  padding: 10px 0;
+  padding: 20px;
+  scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -186,7 +186,7 @@
   flex-shrink: 0;
   position: relative;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .selected-slider-item:hover {
@@ -271,14 +271,14 @@ body.light .info-left p {
 /* Responsive */
 @media (max-width: 768px) {
   .albums-grid {
-    grid-template-columns: repeat(auto-fit, 320px);
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1rem;
   }
 }
 
 @media (max-width: 768px) {
   .album-card {
-    height: 350px;
+    height: auto;
     padding: 0.75rem;
   }
 
@@ -308,7 +308,7 @@ body.light .info-left p {
 
 @media (max-width: 480px) {
   .album-card {
-    height: 280px;
+    height: auto;
     padding: 0.5rem;
   }
 
@@ -318,11 +318,11 @@ body.light .info-left p {
   }
 
   .album-info h3 {
-    font-size: 13px;
+    font-size: 0.85rem;
   }
 
   .album-info p {
-    font-size: 11px;
+    font-size: 0.75rem;
   }
 
   .album-buttons {
@@ -337,7 +337,7 @@ body.light .info-left p {
 
   .view-btn,
   .remove-album-btn {
-    padding: 0.6rem 0.4rem;
+    padding: 0.5rem 0.4rem;
     font-size: 0.7rem;
     min-height: 2.5rem;
     display: flex;
