@@ -25,6 +25,8 @@ export default function MyAlbums() {
   const [draggedAlbum, setDraggedAlbum] = useState<Album | null>(null);
   const [showCreateMixModal, setShowCreateMixModal] = useState(false);
   const [mixTitle, setMixTitle] = useState("");
+  const [isImportMode, setIsImportMode] = useState(false);
+  const [playlistUrl, setPlaylistUrl] = useState("");
   const [nextUrl, setNextUrl] = useState<string | null>("/me/albums?limit=20");
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
@@ -272,10 +274,34 @@ export default function MyAlbums() {
     }
   };
 
-  const handleCreateMix = (e: React.FormEvent) => {
+  const handleCreateMix = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!mixTitle.trim()) return;
-    createMix(mixTitle.trim());
+    if (isImportMode) {
+      if (!playlistUrl.trim() || !token) return;
+      const playlistId = extractPlaylistId(playlistUrl.trim());
+      if (!playlistId) {
+        showModal("Error", "URL de playlist inválida");
+        return;
+      }
+      const manager = CustomAlbumManager.getInstance();
+      const album = await manager.createAlbumFromPlaylist(playlistId, token);
+      if (album) {
+        setCustomAlbums(manager.getAlbums());
+        setShowCreateMixModal(false);
+        setPlaylistUrl("");
+        navigate(`/custom-album/${album.id}`);
+      } else {
+        showModal("Error", "No se pudo importar la playlist");
+      }
+    } else {
+      if (!mixTitle.trim()) return;
+      createMix(mixTitle.trim());
+    }
+  };
+
+  const extractPlaylistId = (url: string): string | null => {
+    const match = url.match(/playlist\/([a-zA-Z0-9]+)/);
+    return match ? match[1] : null;
   };
 
   return (
@@ -293,12 +319,26 @@ export default function MyAlbums() {
                 guardado dentro de 'mis álbumes'.
               </p>
             </div>
-            <button
-              className="create-mix-btn"
-              onClick={() => setShowCreateMixModal(true)}
-            >
-              🎵 Crear Mix
-            </button>
+            <div className="mix-buttons">
+              <button
+                className="create-mix-btn"
+                onClick={() => {
+                  setIsImportMode(false);
+                  setShowCreateMixModal(true);
+                }}
+              >
+                🎵 Crear Mix
+              </button>
+              <button
+                className="import-mix-btn"
+                onClick={() => {
+                  setIsImportMode(true);
+                  setShowCreateMixModal(true);
+                }}
+              >
+                📥 Importar Mix
+              </button>
+            </div>
           </div>
         </section>
 
@@ -491,30 +531,53 @@ export default function MyAlbums() {
             onClick={() => setShowCreateMixModal(false)}
           >
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <h2>Crear Nuevo Mix</h2>
+              <h2>
+                {isImportMode ? "Importar Mix de Spotify" : "Crear Nuevo Mix"}
+              </h2>
               <form onSubmit={handleCreateMix}>
-                <div className="form-group">
-                  <label htmlFor="mix-title">Título del Mix *</label>
-                  <input
-                    id="mix-title"
-                    type="text"
-                    value={mixTitle}
-                    onChange={(e) => setMixTitle(e.target.value)}
-                    placeholder="Mi Mix Favorito"
-                    required
-                    autoComplete="off"
-                  />
-                </div>
+                {isImportMode ? (
+                  <div className="form-group">
+                    <label htmlFor="playlist-url">
+                      URL de la Playlist de Spotify *
+                    </label>
+                    <input
+                      id="playlist-url"
+                      type="url"
+                      value={playlistUrl}
+                      onChange={(e) => setPlaylistUrl(e.target.value)}
+                      placeholder="https://open.spotify.com/playlist/..."
+                      required
+                      autoComplete="off"
+                    />
+                  </div>
+                ) : (
+                  <div className="form-group">
+                    <label htmlFor="mix-title">Título del Mix *</label>
+                    <input
+                      id="mix-title"
+                      type="text"
+                      value={mixTitle}
+                      onChange={(e) => setMixTitle(e.target.value)}
+                      placeholder="Mi Mix Favorito"
+                      required
+                      autoComplete="off"
+                    />
+                  </div>
+                )}
                 <div className="modal-actions">
                   <button
                     type="button"
                     className="cancel-btn"
-                    onClick={() => setShowCreateMixModal(false)}
+                    onClick={() => {
+                      setShowCreateMixModal(false);
+                      setMixTitle("");
+                      setPlaylistUrl("");
+                    }}
                   >
                     Cancelar
                   </button>
                   <button type="submit" className="create-btn">
-                    Crear Mix
+                    {isImportMode ? "Importar Mix" : "Crear Mix"}
                   </button>
                 </div>
               </form>
