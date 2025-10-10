@@ -28,39 +28,39 @@ export default function MyAlbums() {
   const [nextUrl, setNextUrl] = useState<string | null>("/me/albums?limit=20");
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const fetchSavedAlbums = async () => {
-      if (!token || !nextUrl) return;
+  const fetchSavedAlbums = useCallback(async () => {
+    if (!token || !nextUrl) return;
 
-      try {
-        setIsLoading(true);
-        const data = await spotifyFetch<{
-          items: { album: Album }[];
-          next: string | null;
-        }>(nextUrl, token, {}, () =>
-          showModal(
-            "Acceso Denegado",
-            "Tu email no está autorizado para usar esta aplicación."
-          )
-        );
-        const savedAlbums = data.items.map((item) => item.album);
-        setAlbums((prev) => [...prev, ...savedAlbums]);
-        setNextUrl(data.next);
-      } catch (err: unknown) {
-        const error = err as Error;
-        setError(error.message);
-        if (error.message.includes("expirado")) {
-          logout();
-        }
-      } finally {
-        setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const data = await spotifyFetch<{
+        items: { album: Album }[];
+        next: string | null;
+      }>(nextUrl, token, {}, () =>
+        showModal(
+          "Acceso Denegado",
+          "Tu email no está autorizado para usar esta aplicación."
+        )
+      );
+      const savedAlbums = data.items.map((item) => item.album);
+      setAlbums((prev) => [...prev, ...savedAlbums]);
+      setNextUrl(data.next);
+    } catch (err: unknown) {
+      const error = err as Error;
+      setError(error.message);
+      if (error.message.includes("expirado")) {
+        logout();
       }
-    };
+    } finally {
+      setIsLoading(false);
+    }
+  }, [token, nextUrl, showModal, logout]);
 
+  useEffect(() => {
     if (nextUrl) {
       fetchSavedAlbums();
     }
-  }, [token, logout, showModal, nextUrl]);
+  }, [nextUrl, fetchSavedAlbums]);
 
   useEffect(() => {
     const manager = CustomAlbumManager.getInstance();
@@ -228,7 +228,7 @@ export default function MyAlbums() {
       (entries) => {
         const first = entries[0];
         if (first.isIntersecting && nextUrl && !isLoading) {
-          setNextUrl(nextUrl);
+          fetchSavedAlbums();
         }
       },
       { threshold: 1 }
@@ -239,8 +239,12 @@ export default function MyAlbums() {
       observer.observe(currentLoader);
     }
 
-    return () => currentLoader && observer.unobserve(currentLoader);
-  }, [nextUrl, isLoading]);
+    return () => {
+      if (currentLoader) {
+        observer.unobserve(currentLoader);
+      }
+    };
+  }, [nextUrl, isLoading, fetchSavedAlbums]);
 
   if (error) return <Message type="error" text={`Error: ${error}`} />;
 
