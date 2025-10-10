@@ -7,6 +7,7 @@ Una aplicación web para buscar y gestionar álbumes de Spotify. Permite a los u
 - 🔐 Autenticación con Spotify OAuth 2.0
 - 🔍 Búsqueda de álbumes en tiempo real
 - 💾 Guardado de álbumes favoritos
+- 🎵 Creación de mixes personalizados
 - 🎵 Visualización organizada por artista
 - 🖱️ Interfaz de arrastrar y soltar para reordenar álbumes
 - 📱 Diseño responsivo
@@ -74,14 +75,18 @@ src/
 │   ├── Pagination.tsx  # Componente de paginación
 │   └── ...
 ├── pages/              # Páginas principales
-│   ├── LoginPage.tsx   # Página de login
-│   ├── SearchPage.tsx  # Página de búsqueda
-│   └── MyAlbums.tsx    # Página de álbumes guardados
+│   ├── LoginPage.tsx           # Página de login
+│   ├── SearchPage.tsx          # Página de búsqueda
+│   ├── MyAlbums.tsx            # Página de álbumes guardados
+│   ├── CustomAlbumDetailPage.tsx # Detalle de mix personalizado
+│   └── AlbumPage.tsx           # Detalle de álbum
 ├── hooks/              # Hooks personalizados
 │   ├── useAuth.ts      # Lógica de autenticación
 │   └── useDebounce.ts  # Hook para debounce
 ├── lib/                # Utilidades
 │   └── pkce.ts         # Funciones PKCE
+├── types/              # Definiciones de tipos
+│   └── customAlbum.ts  # Tipos para mixes personalizados
 ├── AuthContext.tsx     # Contexto de autenticación
 ├── spotifyClient.ts    # Cliente para API de Spotify
 └── App.tsx             # Componente principal
@@ -104,6 +109,7 @@ src/
 ### Gestión de Álbumes
 
 - Guardado y eliminación de álbumes
+- Creación y gestión de mixes personalizados
 - Organización por artista
 - Reordenamiento mediante drag & drop
 - Vista detallada de álbumes seleccionados
@@ -141,6 +147,3 @@ Pierox-afk- piero.asch@gmail.com
 https://spoty-app-aprz.vercel.app
 
 ¡Disfruta explorando y guardando tus álbumes favoritos de Spotify!
-
-Note un error en el Figma,en el frame 39,una de las cards de album,tiene la opcion de add album,pero se supone que ya esta en la seccion de my albums
-" "

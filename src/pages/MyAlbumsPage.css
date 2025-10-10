@@ -144,7 +144,6 @@
   background-color: #ff3742;
 }
 
-/* Selected album section styles */
 .selected-album-section {
   padding: 20px 0;
 }
@@ -267,7 +266,6 @@ body.light .info-left p {
   background-color: #ff3742;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .albums-grid {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -362,7 +360,6 @@ body.light .info-left p {
   }
 }
 
-/* Mix styles */
 .created-mix-section {
   background-color: var(--card-bg);
   border-radius: 12px;
@@ -438,7 +435,6 @@ body.light .info-left p {
   margin-left: 15px;
 }
 
-/* Modal styles */
 .modal-overlay {
   position: fixed !important;
   top: 0 !important;
@@ -549,7 +545,7 @@ body.light .modal-overlay {
 
   .form-group input {
     padding: 14px;
-    font-size: 16px; /* Prevent zoom on iOS */
+    font-size: 16px;
   }
 
   .modal-actions {

@@ -250,7 +250,6 @@ export default function MyAlbums() {
 
   const groupedAlbums = groupByArtist(albums);
 
-  // Sort artists by number of albums (descending)
   const sortedArtists = Object.keys(groupedAlbums).sort((a, b) => {
     return groupedAlbums[b].length - groupedAlbums[a].length;
   });
@@ -383,7 +382,7 @@ export default function MyAlbums() {
                       onClick={() => navigate(`/custom-album/${album.id}`)}
                     >
                       <img
-                        src={album.coverUrl || "/default-album.png"} // Assuming custom albums have one size
+                        src={album.coverUrl || "/default-album.png"}
                         alt={album.name}
                         className="album-image"
                         loading="lazy"
