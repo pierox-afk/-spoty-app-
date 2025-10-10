@@ -32,33 +32,6 @@ export interface Artist {
   name: string;
 }
 
-interface SpotifyPlaylistTrack {
-  track: {
-    id: string;
-    name: string;
-    artists: Artist[];
-    duration_ms: number;
-    track_number: number;
-    preview_url?: string;
-    external_urls?: {
-      spotify: string;
-    };
-    album: {
-      images: { url: string }[];
-      name: string;
-    };
-  };
-}
-
-interface SpotifyPlaylistResponse {
-  name: string;
-  description?: string;
-  images?: { url: string }[];
-  tracks: {
-    items: SpotifyPlaylistTrack[];
-  };
-}
-
 export class CustomAlbumManager {
   private static instance: CustomAlbumManager;
   private albums: CustomAlbum[] = [];
@@ -194,58 +167,6 @@ export class CustomAlbumManager {
       } catch (error) {
         console.error("Error fetching artist image:", error);
       }
-    }
-  }
-
-  async createAlbumFromPlaylist(
-    playlistId: string,
-    token: string,
-    name?: string
-  ): Promise<CustomAlbum | null> {
-    try {
-      const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${playlistId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch playlist");
-      }
-
-      const playlistData: SpotifyPlaylistResponse = await response.json();
-      const tracks = playlistData.tracks.items.map((item) => ({
-        id: item.track.id,
-        name: item.track.name,
-        artists: item.track.artists,
-        duration_ms: item.track.duration_ms,
-        track_number: item.track.track_number,
-        preview_url: item.track.preview_url,
-        external_urls: item.track.external_urls,
-        album: {
-          images: item.track.album.images,
-          name: item.track.album.name,
-        },
-      }));
-
-      const album: CustomAlbum = {
-        id: Date.now().toString(),
-        name: name || playlistData.name,
-        tracks,
-        createdAt: new Date().toISOString(),
-        coverUrl: playlistData.images?.[0]?.url,
-        description: playlistData.description,
-      };
-
-      this.albums.push(album);
-      this.saveToStorage();
-      return album;
-    } catch (error) {
-      console.error("Error creating album from playlist:", error);
-      return null;
     }
   }
 }
