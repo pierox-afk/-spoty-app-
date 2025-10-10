@@ -3,7 +3,7 @@
   padding: 0.8rem 1.2rem;
   font-size: 1.1rem;
   border-radius: 50px;
-  background: transparent;
+  background-color: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-color);
   margin-bottom: 2rem;
