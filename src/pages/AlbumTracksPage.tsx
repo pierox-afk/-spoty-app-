@@ -58,9 +58,6 @@ export default function AlbumTracksPage() {
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err.message);
-          if (err.message.includes("expirado")) {
-            logout();
-          }
         } else {
           setError("Error desconocido");
         }

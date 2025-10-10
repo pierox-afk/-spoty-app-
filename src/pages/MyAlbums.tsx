@@ -57,9 +57,6 @@ export default function MyAlbums() {
     } catch (err: unknown) {
       const error = err as Error;
       setError(error.message);
-      if (error.message.includes("expirado")) {
-        logout();
-      }
     } finally {
       setIsLoading(false);
     }

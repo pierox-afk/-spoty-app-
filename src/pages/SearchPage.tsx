@@ -99,9 +99,6 @@ export default function SearchPage() {
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err.message);
-          if (err.message.includes("expirado")) {
-            logout();
-          }
         } else {
           setError("Error desconocido");
         }

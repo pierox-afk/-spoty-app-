@@ -139,10 +139,6 @@ La aplicación utiliza los siguientes endpoints de la API de Spotify:
 
 Este proyecto está bajo la Licencia MIT.
 
-## Autor
-
-Pierox-afk- piero.asch@gmail.com
-
 ---
 
 ## Vercel url
